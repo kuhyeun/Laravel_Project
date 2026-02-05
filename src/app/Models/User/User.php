@@ -6,15 +6,15 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable; // Model 대신 Authenticatable 상속
 use Illuminate\Notifications\Notifiable; // Notifiable 트레잇도 로그인 가능한 모델에 유용할 수 있습니다.
 
-class Login extends Authenticatable {
+class User extends Authenticatable {
     use HasFactory, Notifiable;
 
     const CREATED_AT = 'CREATE_DATETIME'; // 실제 생성 시각 컬럼 이름 지정
     const UPDATED_AT = 'UPDATE_DATETIME'; // 실제 업데이트 시각 컬럼 이름 지정
 
-    protected $table = 'account_member'; // 요청하신 테이블 이름
+    protected $table      = 'account_member'; // 요청하신 테이블 이름
     protected $primaryKey = 'ACCOUNT_IDX'; // 요청하신 기본 키 컬럼
-    public $incrementing = true; // ACCOUNT_IDX가 자동 증가 컬럼이라고 가정
+    public $incrementing  = true; // ACCOUNT_IDX가 자동 증가 컬럼이라고 가정
 
     /**
      * 대량 할당이 가능한 속성입니다.
@@ -45,4 +45,14 @@ class Login extends Authenticatable {
     }
 
     public $timestamps = true; // Laravel의 타임스탬프 자동 관리 활성화
+
+    // Laravel 인증시 사용할 id 값의 컬럼명 재정의 ( 기본값은 email )
+    public function username(): string {
+        return 'USER_ID';
+    }
+
+    // Laravel 인증시 비교할 암호화된 password 값의 컬럼명 재정의 ( 기본값은 password )
+    public function getAuthPassword(): string {
+        return $this->USER_PW;
+    }
 }

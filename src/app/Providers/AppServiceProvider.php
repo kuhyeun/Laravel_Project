@@ -5,8 +5,8 @@ namespace App\Providers;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\Facades\Session;
-use App\Models\User\Login; // Login 모델을 use
-use App\Observers\LoginObserver; // LoginObserver를 use
+use App\Models\User\User; // User 모델을 use
+use App\Observers\UserObserver; // UserObserver를 use
 
 class AppServiceProvider extends ServiceProvider {
     /**
@@ -20,8 +20,8 @@ class AppServiceProvider extends ServiceProvider {
      * Bootstrap any application services.
      */
     public function boot(): void {
-        // Login 모델에 LoginObserver를 등록합니다.
-        Login::observe(LoginObserver::class);
+        // User 모델에 UserObserver를 등록합니다.
+        User::observe(UserObserver::class);
 
         // This is the Laravel equivalent of the logic in MK_Custom's constructor.
         // It shares common data with all views.
