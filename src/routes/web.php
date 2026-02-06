@@ -8,11 +8,8 @@ Route::get('/', function () {
     return redirect( '/users' );
 });
 
-// --- User-related routes group with redirect and catch-all for undefined paths ---
 Route::prefix('users')->name('user.')->group(function () {
     Route::redirect('/', '/users/login');
-
-    Route::get('/dashboard', [UserController::class, 'dashboard'])->name('dashboard');
 
     Route::get('/login', [UserController::class, 'showLoginForm'])->name('login');
     Route::post('/login', [UserController::class, 'processLogin'])->name('login.process');
@@ -21,8 +18,10 @@ Route::prefix('users')->name('user.')->group(function () {
 
     Route::get('/register', [UserController::class, 'showRegistrationForm'])->name('register');
     Route::post('/register', [UserController::class, 'processRegistration'])->name('register.process');
+});
 
-    Route::get('/{any}', function () {
-        abort(404);
-    })->where('any', '.*');
+Route::prefix('main')->name('main.')->group(function () {
+    Route::redirect( '/', 'users/main' );
+
+    Route::get('/dashboard', [MainController::class, 'dashboard'])->name('dashboard');
 });
