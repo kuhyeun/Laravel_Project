@@ -1,6 +1,6 @@
 <?php
 
-namespace Database\Factories;
+namespace Database\Factories\User;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Facades\Hash;
@@ -14,7 +14,7 @@ class UserFactory extends Factory {
         return [
             'USER_ID'    => $this->faker->unique()->userName(),
             'USER_PW'    => Hash::make( 'test123' ),
-            'USER_NAME'  => $this->faker->unique()->name(),
+            'USER_NAME'  => fake('ko_KR')->name(),
             'USER_TYPE'  => 'user',
             'USER_LEVEL' => 99,
             'IS_USE'     => true

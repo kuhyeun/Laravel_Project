@@ -11,6 +11,8 @@ Route::get('/', function () {
 Route::prefix('users')->name('user.')->group(function () {
     Route::redirect('/', '/users/login');
 
+    Route::get('/dashboard', [UserController::class, 'dashboard'])->name('dashboard');
+
     Route::get('/login', [UserController::class, 'showLoginForm'])->name('login');
     Route::post('/login', [UserController::class, 'processLogin'])->name('login.process');
 

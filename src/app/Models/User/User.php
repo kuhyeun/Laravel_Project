@@ -3,8 +3,8 @@
 namespace App\Models\User;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Foundation\Auth\User as Authenticatable; // Model 대신 Authenticatable 상속
-use Illuminate\Notifications\Notifiable; // Notifiable 트레잇도 로그인 가능한 모델에 유용할 수 있습니다.
+use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Notifications\Notifiable;
 
 class User extends Authenticatable {
     use HasFactory, Notifiable;
@@ -16,11 +16,6 @@ class User extends Authenticatable {
     protected $primaryKey = 'ACCOUNT_IDX'; // 요청하신 기본 키 컬럼
     public $incrementing  = true; // ACCOUNT_IDX가 자동 증가 컬럼이라고 가정
 
-    /**
-     * 대량 할당이 가능한 속성입니다.
-     *
-     * @var array<int, string>
-     */
     protected $fillable = [
         'USER_ID',
         'USER_PW',

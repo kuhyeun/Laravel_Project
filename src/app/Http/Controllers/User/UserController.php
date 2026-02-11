@@ -14,7 +14,7 @@ use Illuminate\Support\Facades\Hash; // 비밀번호 해싱/검증용
 class UserController extends Controller {
 
     public function dashboard() {
-        return view( 'welcome' );
+        return view( 'users.index' );
     }
 
     public function showLoginForm() {

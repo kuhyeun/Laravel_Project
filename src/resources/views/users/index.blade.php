@@ -12,21 +12,25 @@
             <tr style="background-color: #f4f4f4;">
                 <th style="padding: 8px 12px; border: 1px solid #ddd;">ID</th>
                 <th style="padding: 8px 12px; border: 1px solid #ddd;">Name</th>
-                <th style="padding: 8px 12px; border: 1px solid #ddd;">Email</th>
+                <th style="padding: 8px 12px; border: 1px solid #ddd;">UserType</th>
             </tr>
         </thead>
         <tbody>
-            @forelse ($users as $user)
+            <!-- 로그인한 계정이 있는 경우 -->
+            @auth
                 <tr>
-                    <td style="padding: 8px 12px; border: 1px solid #ddd;">{{ $user->id }}</td>
-                    <td style="padding: 8px 12px; border: 1px solid #ddd;">{{ $user->name }}</td>
-                    <td style="padding: 8px 12px; border: 1px solid #ddd;">{{ $user->email }}</td>
+                    <td style="padding: 8px 12px; boarder: 1px solid #ddd;">{{ session('user_id') }}</td>
+                    <td style="padding: 8px 12px; boarder: 1px solid #ddd;">{{ session('user_name') }}</td>
+                    <td style="padding: 8px 12px; boarder: 1px solid #ddd;">{{ session('user_type') }}</td>
                 </tr>
-            @empty
+            @endauth
+
+            <!-- 로그인한 계정이 없는 경우 -->
+            @guest
                 <tr>
                     <td colspan="3" style="padding: 8px 12px; border: 1px solid #ddd;">No users found.</td>
                 </tr>
-            @endforelse
+            @endguest
         </tbody>
     </table>
 @endsection
