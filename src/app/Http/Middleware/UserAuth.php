@@ -8,11 +8,7 @@ use Illuminate\Support\Facades\Session;
 use Symfony\Component\HttpFoundation\Response;
 
 class UserAuth {
-    /**
-     * Handle an incoming request.
-     *
-     * @param  \Closure(\Illuminate\Http\Request): (\Symfony\Component\HttpFoundation\Response)  $next
-     */
+
     public function handle(Request $request, Closure $next): Response {
         if (!Session::has('user_id')) {
             // 세션에 'user_id'가 없으면, 로그인 페이지로 리다이렉트시킵니다.

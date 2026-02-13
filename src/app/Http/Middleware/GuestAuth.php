@@ -4,18 +4,18 @@ namespace App\Http\Middleware;
 
 use Closure;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Session;
+use Illiminate\Support\Facades\Auth;
 use Symfony\Component\HttpFoundation\Response;
 
-class AdminAuth {
-    
+class GuestAuth {
+
     public function handle(Request $request, Closure $next): Response {
-        if (!Session::has('admin_id')) {
-            if (!$request->is('admin/login')) {
-                return response('Access Denied. Please log in.', 403);
-            }
+
+        if( Auth::check() ) {
+            return redirect( 'user.dashboard' );
         }
 
+        // 원래 URL 그대로 진행
         return $next($request);
     }
 }

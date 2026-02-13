@@ -12,12 +12,12 @@ class UserFactory extends Factory {
 
     public function definition(): array {
         return [
-            'USER_ID'    => $this->faker->unique()->userName(),
-            'USER_PW'    => Hash::make( 'test123' ),
-            'USER_NAME'  => fake('ko_KR')->name(),
-            'USER_TYPE'  => 'user',
-            'USER_LEVEL' => 99,
-            'IS_USE'     => true
+            'user_id'    => $this->faker->unique()->regexify('[a-z]{' . mt_rand(4, 8) . '}'),
+            'user_pw'    => Hash::make( '0000' ),
+            'user_name'  => fake('ko_KR')->name(),
+            'user_type'  => 'user',
+            'user_level' => 99,
+            'is_use'     => true
         ];
     }
 }

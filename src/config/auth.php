@@ -13,6 +13,7 @@ return [
         ],
     ],
 
+    // Auth 를 사용할때 사용될 Model 지정
     'providers' => [
         'users' => [
             'driver' => 'eloquent',

@@ -6,10 +6,8 @@ use App\Http\Controllers\Controller; // 부모 Controller를 명시적으로 불
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
 use App\Models\User\User; // User 모델의 정확한 네임스페이스 경로
-use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Auth; // Laravel의 기본 인증 파사드
-use Illuminate\Support\Facades\Hash; // 비밀번호 해싱/검증용
 
 class UserController extends Controller {
 
@@ -28,26 +26,26 @@ class UserController extends Controller {
         ]);
 
         $credentials = [
-            'USER_ID' => $request->input( 'user_id' ),
+            'user_id' => $request->input( 'user_id' ),
             'password' => $request->input( 'password' ),
-            'IS_USE' => true
+            'is_use' => true
         ];
 
         if( Auth::attempt( $credentials ) ) {
             $request->session()->regenerate();
             
             $user = Auth::user();
-            Session::put( 'user_idx', $user->ACCOUNT_IDX );
-            Session::put( 'user_id', $user->USER_ID );
-            Session::put( 'user_name', $user->USER_NAME );
-            Session::put( 'user_type', $user->USER_TYPE );
-            Session::put( 'user_level', $user->USER_LEVEL );
+            Session::put( 'user_idx', $user->account_idx );
+            Session::put( 'user_id', $user->user_id );
+            Session::put( 'user_name', $user->user_name );
+            Session::put( 'user_type', $user->user_type );
+            Session::put( 'user_level', $user->user_level );
 
             return redirect()->route( 'user.dashboard' );
         }
 
         return back()->withErrors([
-            'user_id' => '제공된 자격 증명이 기록과 일치하지 않습니다.',
+            'user_id' => '로그인 정보를 찾을 수 없습니다.',
         ])->onlyInput( 'user_id' );
     }
     
@@ -66,17 +64,17 @@ class UserController extends Controller {
         ];
 
         $validated = $request->validate([
-            'user_id' => ['required', 'string', 'max:255', 'unique:account_member,USER_ID'],
+            'user_id' => ['required', 'string', 'max:255', 'unique:account_member,user_id'],
             'user_name' => ['required', 'string', 'max: 50'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
         ], $messages);
 
         $user = new User();
-        $user->USER_ID    = $validated['user_id'];
-        $user->USER_PW    = $validated['password'];
-        $user->USER_NAME  = $validated['user_name'];
-        $user->USER_LEVEL = 99;
-        $user->IS_USE     = true;
+        $user->user_id    = $validated['user_id'];
+        $user->user_pw    = $validated['password'];
+        $user->user_name  = $validated['user_name'];
+        $user->user_level = 99;
+        $user->is_use     = true;
 
         $user->save();
 

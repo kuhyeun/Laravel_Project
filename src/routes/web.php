@@ -21,9 +21,3 @@ Route::prefix('users')->name('user.')->group(function () {
     Route::get('/register', [UserController::class, 'showRegistrationForm'])->name('register');
     Route::post('/register', [UserController::class, 'processRegistration'])->name('register.process');
 });
-
-Route::prefix('main')->name('main.')->group(function () {
-    Route::redirect( '/', 'users/main' );
-
-    Route::get('/dashboard', [MainController::class, 'dashboard'])->name('dashboard');
-});
