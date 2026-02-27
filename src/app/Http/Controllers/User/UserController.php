@@ -12,7 +12,8 @@ use Illuminate\Support\Facades\Auth; // Laravel의 기본 인증 파사드
 class UserController extends Controller {
 
     public function dashboard() {
-        return view( 'users.index' );
+        // return view( 'users.index' );
+        return view('welcome');
     }
 
     public function showLoginForm() {

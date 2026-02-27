@@ -3,10 +3,12 @@
 namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
+use App\Http\View\Composers\AdminMenuComposer;
+use App\Http\View\Composers\UserMenuComposer;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\Facades\Session;
-use App\Models\User\User; // User 모델을 use
-use App\Observers\UserObserver; // UserObserver를 use
+use App\Models\User\User;
+use App\Observers\UserObserver;
 
 class AppServiceProvider extends ServiceProvider {
     public function register(): void {
@@ -14,6 +16,9 @@ class AppServiceProvider extends ServiceProvider {
 
     public function boot(): void {
         User::observe(UserObserver::class);
+
+        View::composer('frame.leftMenu', AdminMenuComposer::class);
+        View::composer('frame.topFrame', UserMenuComposer::class);
 
         View::composer('*', function ($view) {
             $sessionData = (object) [
@@ -23,19 +28,7 @@ class AppServiceProvider extends ServiceProvider {
                 'userName'  => Session::get('user_name'),
                 'partCode'  => Session::get('part_code'),
             ];
-
-            $userMenu = [
-                (object)['name' => 'Dashboard', 'location' => '/dashboard', 'on' => 'Y'],
-                (object)['name' => 'Profile', 'location' => '/profile', 'on' => 'N'],
-            ];
-            $adminMenu = [
-                (object)['name' => 'Admin Dashboard', 'location' => '/admin', 'on' => 'Y'],
-                (object)['name' => 'User Management', 'location' => '/admin/users', 'on' => 'N'],
-            ];
-
-            $view->with('mSession', $sessionData)
-                 ->with('userMenu', $userMenu)
-                 ->with('adminMenu', $adminMenu);
+            $view->with('mSession', $sessionData);
         });
     }
 }

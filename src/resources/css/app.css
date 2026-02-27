@@ -1,3 +1,50 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+/* === Fixed Layout Styles Start === */
+
+/* Basic reset and full height setup */
+@layer components {
+    html, body {
+        height: 100%;
+        margin: 0;
+        overflow: hidden; /* Prevent body from scrolling */
+    }
+
+    .app-layout {
+        display: flex;
+        flex-direction: column; /* Stack header, body, footer vertically */
+        height: 100vh; /* Full viewport height */
+        background-color: #f4f7f6;
+    }
+
+    .app-header, .app-footer {
+        flex-shrink: 0; /* Prevent from shrinking */
+        background-color: #ffffff;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+        z-index: 10;
+    }
+
+    .app-body {
+        display: flex;
+        flex-direction: row; /* Place sidebar and content side-by-side */
+        flex-grow: 1; /* Take up all available vertical space */
+        overflow: hidden; /* Prevent this container from scrolling */
+    }
+
+    .app-sidebar {
+        flex-shrink: 0; /* Prevent from shrinking */
+        width: 200px;
+        overflow-y: auto; /* Allow vertical scrolling inside the sidebar */
+        border-right: 1px solid #e0e0e0;
+        background-color: #ffffff;
+    }
+
+    .app-content {
+        flex-grow: 1; /* Take up all available horizontal space */
+        overflow-y: auto; /* Allow vertical scrolling inside the main content */
+        padding: 2rem;
+    }
+}
+/* === Fixed Layout Styles End === */

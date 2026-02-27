@@ -25,7 +25,7 @@ class User extends Authenticatable {
         'update_account_idx', // 옵저버로 채워질 감사 컬럼
     ];
 
-    // 조회시 숨겨져야될 컬럼 ( Select를 해도 user_pw 는 조회되지않음 )
+    // 조회시 숨겨져야될 컬럼 ( SELECT를 해도 user_pw 는 조회되지않음 )
     protected $hidden = [
         'user_pw',
     ];
