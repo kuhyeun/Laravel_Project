@@ -4,10 +4,7 @@
         <h1>Top Frame Area</h1>
     </div>
     <nav class="flex space-x-4">
-        @isset($userMenu)
-            @foreach($userMenu as $menu)
-                <a href="{{ $menu->location }}" class="text-gray-700 hover:text-blue-500">{{ $menu->name }}</a>
-            @endforeach
-        @endisset
+        <a href="{{ route('user.dashboard') }}" class="text-gray-700 hover:text-blue-500">DashBoard</a>
+        <a href="{{ route('user.logout') }}" class="text-gray-700 hover:text-blue-500">Logout</a>
     </nav>
 </div>

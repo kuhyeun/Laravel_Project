@@ -8,11 +8,11 @@ use App\Http\Middleware\AdminAuth;
 
 // LANDING PAGE
 Route::get('/', function () {
-    return redirect( '/users' );
+    return redirect( '/user' );
 });
 
-Route::prefix('users')->name('user.')->group(function () {
-    Route::redirect('/', '/users/login');
+Route::prefix('user')->name('user.')->group(function () {
+    Route::redirect('/', '/user/login');
 
     // 게스트 사용자만 접근
     Route::middleware([GuestAuth::class])->group(function() {

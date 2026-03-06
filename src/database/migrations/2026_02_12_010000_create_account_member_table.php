@@ -5,6 +5,11 @@ use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Schema;
 
+/**
+ * up : 실행 부분 ( COMMIT )
+ * down: 실패시 예외처리 ( ROLLBACK )
+ */
+
 return new class extends Migration {
     
     public function up(): void {

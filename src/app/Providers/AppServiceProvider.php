@@ -17,8 +17,7 @@ class AppServiceProvider extends ServiceProvider {
     public function boot(): void {
         User::observe(UserObserver::class);
 
-        View::composer('frame.leftMenu', AdminMenuComposer::class);
-        View::composer('frame.topFrame', UserMenuComposer::class);
+        View::composer('frame.leftMenu', UserMenuComposer::class);
 
         View::composer('*', function ($view) {
             $sessionData = (object) [

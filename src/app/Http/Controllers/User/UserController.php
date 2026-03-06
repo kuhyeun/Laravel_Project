@@ -11,15 +11,17 @@ use Illuminate\Support\Facades\Auth; // Laravel의 기본 인증 파사드
 
 class UserController extends Controller {
 
+    // 로그인 성공 후 LANDING
     public function dashboard() {
-        // return view( 'users.index' );
-        return view('welcome');
+        return $this->viewOrAbort( 'welcome' );
     }
 
+    // 로그인
     public function showLoginForm() {
-        return view( 'users.login' );
+        return $this->viewOrAbort( 'user.login' );
     }
 
+    // 로그인 처리
     public function processLogin( Request $request ): RedirectResponse {
         $request->validate([
             'user_id' => ['required'],
@@ -50,10 +52,12 @@ class UserController extends Controller {
         ])->onlyInput( 'user_id' );
     }
     
+    // 회원가입
     public function showRegistrationForm() {
-        return view( 'users.register' );
+        return $this->viewOrAbort( 'user.register' );
     }
 
+    // 회원가입 처리
     public function processRegistration( Request $request ): RedirectResponse {
         $messages = [
             'user_id.required'   => '아이디를 입력해주세요',
@@ -82,6 +86,7 @@ class UserController extends Controller {
         return redirect()->route( 'user.login' )->with( 'success', '회원가입이 완료되었습니다. 로그인해주세요.' );
     }
     
+    // 로그아웃
     public function logout( Request $request ): RedirectResponse {
         Auth::logout();
 

@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use Database\Seeders\Menu\MenuSeeder;
 use Illuminate\Database\Seeder;
 use Database\Seeders\User\UserSeeder;
 
@@ -12,6 +13,7 @@ class DatabaseSeeder extends Seeder {
     public function run(): void {
         $this->call([
             UserSeeder::class,
+            MenuSeeder::class,
             // 추후 추가되는 Seeder 추가
         ]);
     }

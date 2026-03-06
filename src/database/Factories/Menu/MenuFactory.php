@@ -5,25 +5,24 @@ namespace Database\Factories\Menu;
 use App\Models\Menu\Menu;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
-/**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Menu\Menu>
- */
 class MenuFactory extends Factory {
-    /**
-     * The name of the factory's corresponding model.
-     *
-     * @var string
-     */
+
     protected $model = Menu::class;
 
-    /**
-     * Define the model's default state.
-     *
-     * @return array<string, mixed>
-     */
     public function definition(): array {
+        $menuCode = $this->faker->unique()->bothify('MENU####');
         return [
-            //
+            'menu_code' => $menuCode,
+            'top_menu_code' => $menuCode,
+            'parent_menu_code' => null,
+            'menu_name' => $this->faker->words(2, true),
+            'menu_level' => 1,
+            'menu_route_name' => 'route.' . $this->faker->slug(2),
+            'is_use' => 'Y',
+            'is_display' => 'Y',
+            'is_admin' => 'N',
+            'create_account_idx' => 1,
+            'remark' => $this->faker->sentence,
         ];
     }
 }
