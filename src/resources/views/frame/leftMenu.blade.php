@@ -18,8 +18,8 @@
             toggle.addEventListener('click', function (event) {
                 event.preventDefault();
 
-                const listItem = this.closest('li');
-                const subMenu = listItem.querySelector('.sub-menu');
+                const listItem    = this.closest('li');
+                const subMenu     = listItem.querySelector('.sub-menu');
                 const iconWrapper = this.querySelector('.icon-wrapper');
 
                 if (subMenu) {
