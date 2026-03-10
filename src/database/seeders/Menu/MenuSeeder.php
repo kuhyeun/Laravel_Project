@@ -4,6 +4,7 @@ namespace Database\Seeders\Menu;
 
 use App\Models\Menu\Menu;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\DB;
 
 class MenuSeeder extends Seeder {
 
@@ -13,6 +14,8 @@ class MenuSeeder extends Seeder {
         foreach( $menus as $topMenuData ) {
             $this->seedMenu( $topMenuData, $topMenuData['menu_code'] );
         }
+
+        $this->setMenuSort();
     }
 
     private function seedMenu( Array $menuData, String $topMenuCode, String $parentMenuCode = "", int $level = 1 ): void {
@@ -61,5 +64,24 @@ class MenuSeeder extends Seeder {
                 ]
             );
         }
+    }
+
+    private function setMenuSort() {
+        $sql = <<<SQL
+            WITH MenuSortCTE AS (
+                SELECT smo.menu_option_idx,
+                       ROW_NUMBER() OVER (
+                           PARTITION BY sm.parent_menu_code, smo.user_level
+                           ORDER BY sm.menu_level, sm.menu_code
+                       ) AS rn
+                  FROM system_menu AS sm
+                 INNER JOIN system_menu_option AS smo ON sm.menu_idx = smo.menu_idx
+            )
+            UPDATE system_menu_option AS smo_target
+              JOIN MenuSortCTE ON smo_target.menu_option_idx = MenuSortCTE.menu_option_idx
+               SET smo_target.menu_sort = MenuSortCTE.rn;
+        SQL;
+
+        DB::statement( $sql );
     }
 }
