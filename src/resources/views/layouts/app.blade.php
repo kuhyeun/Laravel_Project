@@ -8,27 +8,27 @@
     {{-- Vite CSS & JS Directives --}}
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
-<body class="app-layout">
+<body class="flex flex-col h-screen bg-gray-100">
     {{-- Top Frame --}}
-    <header class="app-header bg-red-100">
+    <header class="border-b">
         @include('frame.topFrame')
     </header>
 
     {{-- Main Body Container --}}
-    <div class="app-body">
+    <div class="flex flex-1 overflow-hidden">
         {{-- Left Menu --}}
-        <aside class="app-sidebar bg-yellow-100">
+        <aside id="app-sidebar" class="app-sidebar w-[250px] border-r transition-all duration-300 ease-in-out overflow-y-auto overflow-x-hidden">
             @include('frame.leftMenu')
         </aside>
 
         {{-- Main content area (This will scroll) --}}
-        <main class="app-content bg-blue-100">
+        <main id="app-content" class="app-content flex-1 overflow-y-auto p-6 transition-all duration-300 ease-in-out">
             @yield('content')
         </main>
     </div>
 
     {{-- Bottom Frame --}}
-    <footer class="app-footer bg-green-100">
+    <footer class="app-footer border-t">
         @include('frame.bottomFrame')
     </footer>
 </body>

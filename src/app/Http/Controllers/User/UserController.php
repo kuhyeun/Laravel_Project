@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Session;
 use App\Models\User\User; // User 모델의 정확한 네임스페이스 경로
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Auth; // Laravel의 기본 인증 파사드
+use Illuminate\Support\Facades\Cache;
 
 class UserController extends Controller {
 
@@ -88,6 +89,11 @@ class UserController extends Controller {
     
     // 로그아웃
     public function logout( Request $request ): RedirectResponse {
+        $user = Auth::user();
+        if ($user) {
+            Cache::forget($user->getMenuCacheKey());
+        }
+
         Auth::logout();
 
         $request->session()->invalidate();

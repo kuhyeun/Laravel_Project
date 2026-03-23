@@ -50,4 +50,13 @@ class User extends Authenticatable {
     public function getAuthPassword(): string {
         return $this->user_pw;
     }
+
+    /**
+     * 사용자의 메뉴 캐시 키를 반환합니다.
+     *
+     * @return string
+     */
+    public function getMenuCacheKey(): string {
+        return "user_menu_for_user_{$this->account_idx}";
+    }
 }

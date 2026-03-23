@@ -16,6 +16,7 @@ class MenuFactory extends Factory {
             'top_menu_code' => $menuCode,
             'parent_menu_code' => null,
             'menu_name' => $this->faker->words(2, true),
+            'menu_icon' => null,
             'menu_level' => 1,
             'menu_route_name' => 'route.' . $this->faker->slug(2),
             'is_use' => 'Y',

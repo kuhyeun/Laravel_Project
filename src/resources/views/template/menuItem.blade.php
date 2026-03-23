@@ -1,7 +1,10 @@
 {{-- resources/views/template/menuItem.blade.php --}}
 <li class="my-1">
     <div class="flex items-center justify-between p-1 rounded hover:bg-gray-200 @if(isset($menuItem->children) && count($menuItem->children) > 0) menu-toggle cursor-pointer @endif">
-        <a href="{{ $menuItem->menu_route_name && Route::has($menuItem->menu_route_name) ? route($menuItem->menu_route_name) : '#' }}" class="flex-grow">
+        <a href="{{ $menuItem->menu_route_name && Route::has($menuItem->menu_route_name) ? route($menuItem->menu_route_name) : '#' }}" class="flex-grow flex items-center text-[15px]">
+            @if( isset($menuItem->top_menu_code) && $menuItem->top_menu_code == '****' )
+                @svg( $menuItem->menu_icon, 'h-5 w-5 mr-2')
+            @endif
             <span>{{ $menuItem->menu_name }}</span>
         </a>
         @if(isset($menuItem->children) && count($menuItem->children) > 0)

@@ -12,7 +12,6 @@ class UserObserver {
     public function creating(User $user): void {
         if( Auth::check() ) { // 로그인한 사용자가 있다면
             $user->CREATE_ACCOUNT_IDX = Auth::id(); // 현재 로그인한 사용자 ID 할당
-            $user->UPDATE_ACCOUNT_IDX = Auth::id(); // 생성 시에는 업데이트 ID도 동일하게 설정
         }
     }
 

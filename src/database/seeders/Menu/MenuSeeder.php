@@ -25,6 +25,7 @@ class MenuSeeder extends Seeder {
                 'top_menu_code' => $level == 1 ? '****': $topMenuCode,
                 'parent_menu_code' => $level == 1 ? null : $parentMenuCode,
                 'menu_name' => $menuData['menu_name'],
+                'menu_icon' => $menuData['menu_icon'],
                 'menu_level' => $level,
                 'menu_route_name' => $menuData['menu_route_name'],
                 'is_use' => 'Y',
