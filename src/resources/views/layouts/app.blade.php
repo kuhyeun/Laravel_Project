@@ -8,28 +8,40 @@
     {{-- Vite CSS & JS Directives --}}
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
-<body class="flex flex-col h-screen bg-gray-100">
-    {{-- Top Frame --}}
-    <header class="border-b">
-        @include('frame.topFrame')
-    </header>
+<body class="bg-gray-100">
+    <script>
+        (function() {
+            if( localStorage.getItem( "sidebar-collapsed" ) === "true" ) {
+                document.documentElement.classList.add( "sidebar-collapsed" );
+            };
+        })();
+    </script>
+    <div class="flex flex-col h-screen">
+        {{-- Top Frame --}}
+        <header class="border-b">
+            @include('frame.topFrame')
+        </header>
 
-    {{-- Main Body Container --}}
-    <div class="flex flex-1 overflow-hidden">
-        {{-- Left Menu --}}
-        <aside id="app-sidebar" class="app-sidebar w-[250px] border-r transition-all duration-300 ease-in-out overflow-y-auto overflow-x-hidden">
-            @include('frame.leftMenu')
-        </aside>
+        {{-- Main Body Container --}}
+        <div class="flex flex-1 overflow-hidden">
+            {{-- Left Menu --}}
+            <aside id="app-sidebar" class="app-sidebar w-[250px] border-r transition-all duration-300 ease-in-out overflow-y-auto overflow-x-hidden">
+                @include('frame.leftMenu')
+            </aside>
 
-        {{-- Main content area (This will scroll) --}}
-        <main id="app-content" class="app-content flex-1 overflow-y-auto p-6 transition-all duration-300 ease-in-out">
-            @yield('content')
-        </main>
+            {{-- Main content area (This will scroll) --}}
+            <main id="app-content" class="app-content flex-1 overflow-y-auto p-6 transition-all duration-300 ease-in-out">
+                @yield('content')
+            </main>
+        </div>
+
+        {{-- Bottom Frame --}}
+        <footer class="app-footer border-t">
+            @include('frame.bottomFrame')
+        </footer>
     </div>
 
-    {{-- Bottom Frame --}}
-    <footer class="app-footer border-t">
-        @include('frame.bottomFrame')
-    </footer>
+    {{-- Modal Area --}}
+    <base-modal></base-modal>
 </body>
 </html>

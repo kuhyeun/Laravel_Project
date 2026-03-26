@@ -16,7 +16,7 @@ class UserMenuComposer {
         }
 
         $user = Auth::user();
-        // TODO: 향후 권한별 메뉴를 제공해야 할 경우를 대비하여 사용자 ID 기반 캐시 키 유지
+
         $cacheKey = $user->getMenuCacheKey();
 
         $userMenu = Cache::remember($cacheKey, 60, function () use ($user) {
@@ -40,8 +40,6 @@ class UserMenuComposer {
                     // 필터링된 menuOptions가 항상 존재하므로 first()는 안전합니다.
                     return $menu->menu_level . '-' . ($menu->menuOptions->first()->menu_sort ?? 0);
                 });
-            
-            // dd( $menus->toArray() );
 
             return $this->buildMenuTree($menus);
         });
