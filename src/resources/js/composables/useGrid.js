@@ -14,7 +14,6 @@ export function useGrid() {
   const setGrid = ( gridContainerRef, componentOptions ) => {
     if( !gridContainerRef.value ) {
         console.error( "TUI GRID Element Not Found" );
-    //   console.error( "TUI Grid를 마운트할 엘리먼트가 없습니다. ref가 올바르게 연결되었는지 확인하세요.");
       return;
     }
 
@@ -51,7 +50,63 @@ export function useGrid() {
 
     const newGrid = new Grid( finalOptions );
 
+    const borderColor = "#D7D7D7";
+    
+    Grid.applyTheme( 'clean', {
+      grid: {
+        border: borderColor
+      },
+      outline: {
+        border: borderColor,
+      },
+      selection: {
+        background: "#4daaf9",
+        border: "#C2D6FB"
+      },
+      area: {
+        border: borderColor
+      },
+      cell: {
+        normal: {
+          border: borderColor,
+          showVerticalBorder: true,
+          showHorizontalBorder: true,
+        },
+        header: {
+          background: "#EDEDED",
+          border: borderColor,
+        },
+        rowHeader: {
+          border: borderColor,
+          showVerticalBorder: true,
+          showHorizontalBorder: true
+        },
+        selectedHeader: {
+          background: "#E3E3E3"
+        },
+        focused: {
+          border: "#8f9af2"
+        }
+      }
+    });
+
     gridInstance.value = newGrid;
+
+    const resizeObserver = new ResizeObserver( vv => {
+      for( let v of vv ) {
+        const {width, height} = v.contentRect;
+        
+        let refreshGridHeight = height - ( marginTop + marginBottom ) - 30;
+
+        if( newGrid != null ) {
+          // console.log( `Observe : width = ${width} / height = ${height}` );
+          newGrid.setHeight( refreshGridHeight );
+          newGrid.refreshLayout();
+        };
+      }
+    });
+
+    resizeObserver.observe( gridContainerRef.value );
   };
 
   /**

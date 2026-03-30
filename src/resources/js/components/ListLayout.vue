@@ -39,11 +39,13 @@ const handleGridMounted = (ev) => {
     console.log( 'HandleGridMounted' );
 
     // DEBUG
-    
-    gridInstance.value?.appendRow( { columns_1: "데이터 1-1", columns_2: "데이터 1-2", columns_3: "데이터 1-3"} );
-    gridInstance.value?.appendRow( { columns_1: "데이터 2-1", columns_2: "데이터 2-2", columns_3: "데이터 2-3"} );
-    gridInstance.value?.appendRow( { columns_1: "데이터 3-1", columns_2: "데이터 3-2", columns_3: "데이터 3-3"} );
-    gridInstance.value?.appendRow( { columns_1: "데이터 4-1", columns_2: "데이터 4-2", columns_3: "데이터 4-3"} );
+    for( let i = 1; i <= 20; i++ ) {
+        let data1 = "데이터 " + i + "-1";
+        let data2 = "데이터 " + i + "-2";
+        let data3 = "데이터 " + i + "-3";
+
+        gridInstance.value?.appendRow( { columns_1: data1, columns_2: data2, columns_3: data3 } );
+    };
     
     emit( "grid-mounted", ev );
 };

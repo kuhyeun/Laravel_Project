@@ -24,7 +24,6 @@ const gridColumnsData = [{
     header: "컬럼1",
     name: "columns_1",
     minWidth: 100,
-    className: "cursor-pointer",
     align: "center",
     formatter: ({ value }) => value ? value : "-"
 },
@@ -32,7 +31,6 @@ const gridColumnsData = [{
     header: "컬럼2",
     name: "columns_2",
     minWidth: 100,
-    className: "cursor-pointer",
     align: "center",
     formatter: ({ value }) => value ? value : "-"
 },
@@ -41,12 +39,16 @@ const gridColumnsData = [{
     name: "columns_3",
     minWidth: 100,
     className: "cursor-pointer",
+    editor: "text",
     align: "center",
     formatter: ({ value }) => value ? value : "-"
 }];
 
 const gridOptionsData = {
-    
+    rowHeaders: [{
+        type: "checkbox"
+    }],
+    scrollY: true
 }
 
 const onGridUpdated = (ev) => {
