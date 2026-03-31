@@ -9,7 +9,7 @@
       <div 
         class="modal-overlay" 
         :style="{ zIndex: 1000 + index }" 
-        @click.self="modalStore.close(modal.id)"
+        @click.self="handleOverlayClick(modal)"
       >
         <!-- 동적으로 사이즈 클래스를 부여합니다. -->
         <div class="modal-content" :class="`size-${modal.size}`">
@@ -32,9 +32,33 @@
 </template>
 
 <script setup>
+  import { onMounted, onUnmounted } from 'vue';
   import { useModalStore } from '../stores/modalStore';
 
   const modalStore = useModalStore();
+
+  const handleOverlayClick = (modal) => {
+    if (modal.closeOnClickOutside) {
+      modalStore.close(modal.id);
+    }
+  };
+
+  const handleKeydown = (e) => {
+    if (e.key === 'Escape' && modalStore.modals.length > 0) {
+      const topModal = modalStore.modals[modalStore.modals.length - 1];
+      if (topModal.closeOnEsc) {
+        modalStore.close(); // 최상단 모달을 닫습니다.
+      }
+    }
+  };
+
+  onMounted(() => {
+    window.addEventListener('keydown', handleKeydown);
+  });
+
+  onUnmounted(() => {
+    window.removeEventListener('keydown', handleKeydown);
+  });
 </script>
 
 <style scoped>

@@ -6,6 +6,8 @@ export function useGrid() {
 
   const gridInstance = ref(null);
 
+  let resizeObserver = null;
+
   /**
    * 그리드를 초기화하고 DOM에 마운트하는 메인 함수입니다.
    * @param {ref} gridContainerRef - 그리드가 마운트될 DOM 엘리먼트의 ref / ex) <div ref="gridEl"></div>
@@ -99,7 +101,7 @@ export function useGrid() {
     let marginTop = Number( containerStyle.marginTop.replace( "px", "" ) );
     let marginBottom = Number( containerStyle.marginBottom.replace( "px", "" ) );
 
-    const resizeObserver = new ResizeObserver( vv => {
+    resizeObserver = new ResizeObserver( vv => {
       for( let v of vv ) {
         const {width, height} = v.contentRect;
 
@@ -112,7 +114,7 @@ export function useGrid() {
 
     resizeObserver.observe( gridContainerRef.value );
   }
-
+  
   /**
    * 컴포넌트가 사라질 때(unmounted) 메모리 누수를 방지하기 위해
    * 생성된 그리드 인스턴스를 파괴하는 정리(cleanup) 로직입니다.
@@ -121,6 +123,11 @@ export function useGrid() {
     if( gridInstance.value ) {
       gridInstance.value.destroy();
       gridInstance.value = null;
+    };
+
+    if( resizeObserver != null ) {
+      resizeObserver.disconnect();
+      resizeObserver = null;
     }
   });
 

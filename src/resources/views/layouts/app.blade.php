@@ -32,6 +32,7 @@
             {{-- Main content area (This will scroll) --}}
             <main id="app" class="app-content flex flex-col flex-1 overflow-y-auto p-6 transition-all duration-300 ease-in-out bg-white">
                 @yield('content')
+                <base-modal></base-modal>
             </main>
         </div>
 
@@ -40,8 +41,5 @@
             @include('frame.bottomFrame')
         </footer>
     </div>
-
-    {{-- Modal Area --}}
-    <base-modal></base-modal>
 </body>
 </html>

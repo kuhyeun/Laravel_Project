@@ -19,7 +19,7 @@
         "pinia": "^3.0.4",
         "sweetalert2": "^11.26.20",
         "tui-grid": "^4.21.22",
-        "_comment_tui_grid": "TUI Grid에서 의존성 Xlsx 라이브러리에서 High 레벨의 취약점 2개 발견됨 - 따라서 Export, Import 기능을 커스텀해서 사용 ( 내장함수 사용은 지양할 것 )",
+        "_comment_tui_grid": "TUI Grid에서 의존성 Xlsx 라이브러리에서 High 레벨의 취약점 2개 발견됨 - 따라서 Excel Export, Import 기능을 커스텀해서 사용 ( 내장함수 사용은 지양할 것 )",
         "vue": "^3.5.29"
     },
     "overrides": {

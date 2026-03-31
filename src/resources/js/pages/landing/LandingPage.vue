@@ -73,7 +73,13 @@ const onGridClick = (ev) => {
         id: ev.rowKey || 'temp_id' // grid 이벤트에서 rowKey나 id를 가져옵니다
     };
 
-    modalStore.open( UserDetail, { user: dummyUser }, { size: "lg" } );
+    const modalOptions = {
+        size: "lg",
+        closeOnClickOutside: true, // modal 밖 영역 클릭시 닫힘처리 - Default : true
+        closeOnEsc: true // Esc키 닫힘처리 - Default : true
+    };
+
+    modalStore.open( UserDetail, { user: dummyUser }, modalOptions );
 };
 
 </script>
