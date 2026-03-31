@@ -18,6 +18,9 @@
 import { ref } from 'vue';
 import ListLayout from '@/components/listLayout.vue';
 import { useModalStore } from '@/stores/modalStore';
+import UserDetail from '@/components/modals/UserDetails.vue';
+
+const modalStore = useModalStore();
 
 const gridDataSource = ref([]);
 const gridColumnsData = [{
@@ -61,6 +64,16 @@ const onGridMounted = (ev) => {
 
 const onGridClick = (ev) => {
     console.log( 'LandingPage - onGridClick', ev);
+
+    // 임시 사용자 데이터 (실제로는 ev 객체에서 클릭된 행의 데이터를 가져와야 함)
+    const dummyUser = {
+        name: '홍길동',
+        email: 'test@example.com',
+        joined: '2024-01-01',
+        id: ev.rowKey || 'temp_id' // grid 이벤트에서 rowKey나 id를 가져옵니다
+    };
+
+    modalStore.open( UserDetail, { user: dummyUser }, { size: "lg" } );
 };
 
 </script>

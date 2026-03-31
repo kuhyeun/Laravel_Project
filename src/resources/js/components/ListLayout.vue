@@ -33,7 +33,7 @@ const emit = defineEmits( ["grid-mounted", "grid-updated", "grid-click"] );
 
 const gridContainer = ref( null );
 const { data, isLoading, error, get } = useApi();
-const { gridInstance, setGrid } = useGrid();
+const { gridInstance, setGrid, autoResizeGrid } = useGrid();
 
 const handleGridMounted = (ev) => {
     console.log( 'HandleGridMounted' );
@@ -70,6 +70,7 @@ onMounted( async () => {
     };
 
     setGrid( gridContainer, options );
+    autoResizeGrid( gridContainer, gridInstance.value );
 
     // 내부 핸들러를 TUI Grid 이벤트에 연결
     gridInstance.value?.on( "onGridMounted", handleGridMounted );

@@ -9,6 +9,7 @@ use App\Models\User\User; // User 모델의 정확한 네임스페이스 경로
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Auth; // Laravel의 기본 인증 파사드
 use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Facades\Route;
 
 class UserController extends Controller {
 
@@ -18,7 +19,14 @@ class UserController extends Controller {
     }
 
     // 로그인
-    public function showLoginForm() {
+    public function showLoginForm(Request $request) {
+        // 현재 설정된 라우팅명 가져오는 방법 2가지
+        
+        // $routeName1 = Route::currentRouteName();
+        // $routeName2 = $request->route()->getName();
+
+        // dd($routeName1, $routeName2);
+
         return $this->viewOrAbort( 'user.login' );
     }
 

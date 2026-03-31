@@ -8,21 +8,21 @@ export function useGrid() {
 
   /**
    * 그리드를 초기화하고 DOM에 마운트하는 메인 함수입니다.
-   * @param {ref} gridContainerRef - 그리드가 마운트될 DOM 엘리먼트의 ref (e.g., <div ref="gridEl"></div>)
-   * @param {object} componentOptions - 컴포넌트에서 전달하는 특정 옵션 (columns, data 등)
+   * @param {ref} gridContainerRef - 그리드가 마운트될 DOM 엘리먼트의 ref / ex) <div ref="gridEl"></div>
+   * @param {object} componentOptions - 컴포넌트에서 전달하는 특정 옵션
    */
   const setGrid = ( gridContainerRef, componentOptions ) => {
     if( !gridContainerRef.value ) {
-        console.error( "TUI GRID Element Not Found" );
+        console.error( "Grid Container Not Found" );
       return;
     }
 
     const containerHeight = gridContainerRef.value.offsetHeight;
     const containerStyle  = getComputedStyle( gridContainerRef.value );
 
-    let marginTop = Number( containerStyle.marginTop.replace( "px", "" ) );
-    let marginBottom = Number( containerStyle.marginBottom.replace( "px", "" ) );
-    let gridBodyHeight = containerHeight - ( marginTop + marginBottom ) - 30; // 30 : Grid Header Area Height
+    let marginTop      = Number( containerStyle.marginTop.replace( "px", "" ) );
+    let marginBottom   = Number( containerStyle.marginBottom.replace( "px", "" ) );
+    let gridBodyHeight = containerHeight - ( marginTop + marginBottom ) - 21; // 21 : Grid Header Area Height
 
     // 모든 그리드에 공통적으로 적용될 기본 옵션을 정의합니다.
     const defaultOptions = {
@@ -91,23 +91,27 @@ export function useGrid() {
     });
 
     gridInstance.value = newGrid;
+  };
+
+  const autoResizeGrid = ( gridContainerRef, grid ) => {
+    const containerStyle  = getComputedStyle( gridContainerRef.value );
+
+    let marginTop = Number( containerStyle.marginTop.replace( "px", "" ) );
+    let marginBottom = Number( containerStyle.marginBottom.replace( "px", "" ) );
 
     const resizeObserver = new ResizeObserver( vv => {
       for( let v of vv ) {
         const {width, height} = v.contentRect;
-        
-        let refreshGridHeight = height - ( marginTop + marginBottom ) - 30;
 
-        if( newGrid != null ) {
-          // console.log( `Observe : width = ${width} / height = ${height}` );
-          newGrid.setHeight( refreshGridHeight );
-          newGrid.refreshLayout();
+        if( grid != null ) {
+          grid.setHeight( height - ( marginTop + marginBottom ) );
+          grid.refreshLayout();
         };
       }
     });
 
     resizeObserver.observe( gridContainerRef.value );
-  };
+  }
 
   /**
    * 컴포넌트가 사라질 때(unmounted) 메모리 누수를 방지하기 위해
@@ -124,5 +128,6 @@ export function useGrid() {
   return {
     gridInstance,
     setGrid,
+    autoResizeGrid
   };
 }

@@ -3,7 +3,6 @@ import { createApp } from 'vue';
 import { createPinia } from 'pinia';
 
 // Import components
-import ExampleComponent from '@/components/ExampleComponent.vue';
 import BaseModal from '@/components/BaseModal.vue'; // BaseModal 추가
 import LandingPage from '@/pages/landing/LandingPage.vue';
 
@@ -13,7 +12,6 @@ const pinia = createPinia(); // Pinia 인스턴스 생성
 app.use(pinia); // 앱에 Pinia 등록
 
 // Register components
-app.component('example-component', ExampleComponent);
 app.component('base-modal', BaseModal); // BaseModal 전역 등록
 app.component('landing-page', LandingPage);
 

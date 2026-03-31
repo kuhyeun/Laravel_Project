@@ -30,7 +30,6 @@ html.sidebar-collapsed #app-sidebar {
     html, body {
         height: 100%;
         margin: 0;
-        /* Let body scroll if needed, but main sections will handle their own scrolling */
     }
 
     .basic-btn {

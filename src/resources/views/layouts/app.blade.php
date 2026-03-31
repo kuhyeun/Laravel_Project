@@ -30,7 +30,7 @@
             </aside>
 
             {{-- Main content area (This will scroll) --}}
-            <main id="app-content" class="app-content flex-1 overflow-y-auto p-6 transition-all duration-300 ease-in-out">
+            <main id="app" class="app-content flex flex-col flex-1 overflow-y-auto p-6 transition-all duration-300 ease-in-out bg-white">
                 @yield('content')
             </main>
         </div>
