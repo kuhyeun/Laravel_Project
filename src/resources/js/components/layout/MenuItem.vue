@@ -5,6 +5,7 @@
       :class="{ 'cursor-pointer': hasChildren }"
       @click="hasChildren ? toggle() : null"
     >
+      <component :is="menuIcon" class="h-5 w-5 mr-2" />
       <span v-if="hasChildren" class="flex-grow flex items-center text-[15px]">
         {{ menuItem.menu_name }}
       </span>
@@ -51,6 +52,11 @@ import { ref, computed, nextTick } from 'vue';
 import { route } from 'ziggy-js';
 import { Link } from '@inertiajs/vue3';
 import MenuItem from './MenuItem.vue';
+import * as OutlineIcons from '@heroicons/vue/24/outline';
+
+const menuIcon = computed(() =>
+  OutlineIcons[props.menuItem.menu_icon] ?? OutlineIcons['Bars2Icon']
+);
 
 const props = defineProps({
   menuItem: {
