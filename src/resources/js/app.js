@@ -1,34 +1,15 @@
 import './bootstrap';
-import { createApp } from 'vue';
+import { createApp, h } from 'vue';
 import { createPinia } from 'pinia';
+import { createInertiaApp } from '@inertiajs/vue3';
+import { resolvePageComponent } from 'laravel-vite-plugin/inertia-helpers';
 
-// Import components
-import BaseModal from '@/components/BaseModal.vue'; // BaseModal 추가
-import LandingPage from '@/pages/landing/LandingPage.vue';
-
-const app = createApp({});
-const pinia = createPinia(); // Pinia 인스턴스 생성
-
-app.use(pinia); // 앱에 Pinia 등록
-
-// Register components
-app.component('base-modal', BaseModal); // BaseModal 전역 등록
-app.component('landing-page', LandingPage);
-
-app.mount('#app');
-
-document.addEventListener('DOMContentLoaded', () => {
-    const toggleButton = document.getElementById( 'sidebar-toggle' );
-    const sidebarStateKey = 'sidebar-collapsed';
-
-    if( !toggleButton ) {
-        console.error( 'Sidebar toggle button not found.' );
-        return;
-    };
-
-    toggleButton.addEventListener('click', () => {
-        const isCollapsed = document.documentElement.classList.toggle( 'sidebar-collapsed' );
-
-        localStorage.setItem( sidebarStateKey, isCollapsed );
-    });
+createInertiaApp({
+  resolve: name => resolvePageComponent(`./Pages/${name}.vue`, import.meta.glob('./Pages/**/*.vue')),
+  setup({ el, App, props, plugin }) {
+    createApp({ render: () => h(App, props) })
+      .use(plugin)
+      .use(createPinia())
+      .mount(el);
+  },
 });

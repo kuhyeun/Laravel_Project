@@ -1,25 +1,10 @@
 <template>
   <teleport to="body">
-    <!-- store의 modals 배열을 v-for로 순회하며 활성화된 모든 모달을 렌더링합니다. -->
     <div v-for="(modal, index) in modalStore.modals" :key="modal.id">
-      <!-- 
-        오버레이(배경) 클릭 시 해당 모달을 닫습니다. 
-        z-index를 index 기반으로 동적으로 설정하여 중첩을 구현합니다.
-      -->
-      <div 
-        class="modal-overlay" 
-        :style="{ zIndex: 1000 + index }" 
-        @click.self="handleOverlayClick(modal)"
-      >
-        <!-- 동적으로 사이즈 클래스를 부여합니다. -->
+      <div class="modal-overlay" :style="{ zIndex: 1000 + index }"  @click.self="handleOverlayClick(modal)">
         <div class="modal-content" :class="`size-${modal.size}`">
-          <!-- 닫기 버튼 -->
           <button class="modal-close-btn" @click="modalStore.close(modal.id)">&times;</button>
           
-          <!-- 
-            실제 내용이 될 컴포넌트를 동적으로 렌더링합니다.
-            props를 바인딩하고, 'close' 이벤트를 수신하여 모달을 닫습니다.
-          -->
           <component
             :is="modal.component"
             v-bind="modal.props"

@@ -39,7 +39,7 @@ const handleGridMounted = (ev) => {
     console.log( 'HandleGridMounted' );
 
     // DEBUG
-    for( let i = 1; i <= 20; i++ ) {
+    for( let i = 1; i <= 25; i++ ) {
         let data1 = "데이터 " + i + "-1";
         let data2 = "데이터 " + i + "-2";
         let data3 = "데이터 " + i + "-3";

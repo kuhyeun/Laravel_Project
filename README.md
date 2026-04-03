@@ -28,7 +28,11 @@ How to Install Distribution Project
       
       docker-compose exec laravel_php php artisan db:seed
     
-5.  (선택 사항) Vite 사용 시 프론트엔드 의존성 설치:
+5.  Vite 사용 시 프론트엔드 의존성 설치:
     *   package.json 파일이 있다면 아래 명령어를 실행하여 Node.js 패키지를 설치해야 합니다.
       
       docker-compose exec laravel_php npm install
+
+6.  로컬 개발환경을 위해 vendor/node_modules 폴더 로컬로 복사 및 생성:
+    *   docker cp laravel_php:/var/www/html/vendor ./src/vendor
+    *   npm install

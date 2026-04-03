@@ -1,6 +1,7 @@
 import { defineConfig } from 'vite';
 import laravel from 'laravel-vite-plugin';
 import vue from '@vitejs/plugin-vue';
+import svgLoader from 'vite-svg-loader';
 import path from 'path';
 
 export default defineConfig({
@@ -10,6 +11,7 @@ export default defineConfig({
             refresh: true,
         }),
         vue(),
+        svgLoader(),
     ],
     resolve: {
         alias: {
@@ -19,6 +21,7 @@ export default defineConfig({
     },
     server: {
         host: '0.0.0.0',
+        cors: true,
         hmr: {
             host: '127.0.0.1'
         },

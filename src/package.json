@@ -7,23 +7,26 @@
     },
     "devDependencies": {
         "autoprefixer": "^10.4.20",
-        "axios": "^1.7.4",
         "concurrently": "^9.0.1",
         "laravel-vite-plugin": "^1.2.0",
         "postcss": "^8.4.47",
         "tailwindcss": "^3.4.13",
-        "vite": "^6.0.11"
+        "vite": "^6.0.11",
+        "vite-svg-loader": "^5.1.1"
     },
     "dependencies": {
+        "@inertiajs/core": "^3.0.1",
+        "@inertiajs/vue3": "^3.0.1",
         "@vitejs/plugin-vue": "^6.0.4",
+        "axios": "^1.7.4",
         "pinia": "^3.0.4",
         "sweetalert2": "^11.26.20",
         "tui-grid": "^4.21.22",
-        "_comment_tui_grid": "TUI Grid에서 의존성 Xlsx 라이브러리에서 High 레벨의 취약점 2개 발견됨 - 따라서 Excel Export, Import 기능을 커스텀해서 사용 ( 내장함수 사용은 지양할 것 )",
-        "vue": "^3.5.29"
+        "vue": "^3.5.29",
+        "vue-router": "^4.0.13",
+        "ziggy-js": "^2.6.2"
     },
     "overrides": {
-        "_comment_dompurify": "TUI Grid의 의존성에서 발견된 보안 취약점을 해결하기 위해 버전 고정 ( moderate Level )",
         "dompurify": "^3.3.2"
     }
 }

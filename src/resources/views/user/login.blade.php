@@ -19,6 +19,12 @@
 <body>
     <h1>로그인</h1>
 
+    @error('error')
+        <div class="error" style="border: 1px solid red; padding: 1rem; margin-bottom: 1rem; border-radius: 8px;">
+            {{ $message }}
+        </div>
+    @enderror
+
     {{-- 회원가입 성공 시 메시지 --}}
     @if(session('success'))
         <div class="success">

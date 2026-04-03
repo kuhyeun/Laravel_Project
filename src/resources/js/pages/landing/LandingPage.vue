@@ -19,6 +19,11 @@ import { ref } from 'vue';
 import ListLayout from '@/components/listLayout.vue';
 import { useModalStore } from '@/stores/modalStore';
 import UserDetail from '@/components/modals/UserDetails.vue';
+import AppLayout from '@/Layouts/AppLayout.vue';
+
+defineOptions({
+    layout: AppLayout
+})
 
 const modalStore = useModalStore();
 
