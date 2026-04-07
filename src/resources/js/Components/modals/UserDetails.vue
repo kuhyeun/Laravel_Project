@@ -13,8 +13,6 @@
 </template>
 
 <script setup>
-import { useModalStore } from '../../stores/modalStore';
-import ConfirmDelete from './ConfirmDelete.vue'; // 중첩으로 띄울 컴포넌트
 
 defineProps({
   user: {
@@ -24,12 +22,4 @@ defineProps({
 });
 defineEmits(['close']);
 
-const modalStore = useModalStore();
-
-const openNestedModal = () => {
-  // 현재 모달 위에서 다른 모달을 띄웁니다.
-  modalStore.open(ConfirmDelete, { 
-    item: { id: props.user.id, name: `${props.user.name}의 계정` } 
-  });
-};
 </script>

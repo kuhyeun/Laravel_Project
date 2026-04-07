@@ -1,24 +1,24 @@
 <template>
     <div class="flex flex-col h-screen">
         <header class="border-b">
-            <TopFrame />
+            <top-frame></top-frame>
         </header>
 
         <div class="flex flex-1 overflow-hidden">
             <aside id="app-sidebar" class="app-sidebar w-[250px] border-r transition-all duration-300 ease-in-out overflwo-y-auto overflow-x-hidden">
-                <LeftMenu :menu-items="menuItems" />
+                <left-menu :menu-items="menuItems"></left-menu>
             </aside>
 
-            <main class="app-content flex flex-col flex-1 overflow-y-auto p-6 transition-all duration-300 ease-in-out bg-white">
+            <main class="app-content flex flex-col flex-1 overflow-y-auto p-6 bg-white">
                 <slot></slot>
             </main>
         </div>
         
         <footer class="app-footer border-t">
-            <BottomFrame />
+            <bottom-frame></bottom-frame>
         </footer>
 
-        <BaseModal></BaseModal>
+        <base-modal></base-modal>
     </div>
 </template>
 

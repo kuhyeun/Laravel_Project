@@ -5,6 +5,7 @@ export const useModalStore = defineStore('modal', {
   // state: 모달들을 배열(스택)으로 관리합니다.
   state: () => ({
     modals: [],
+    _nextId: 0,
   }),
 
   actions: {
@@ -19,7 +20,7 @@ export const useModalStore = defineStore('modal', {
       const componentRef = shallowRef(component);
       
       this.modals.push({
-        id: new Date().getTime(), // 고유 ID로 Date.now() 대신 사용
+        id: ++this._nextId,
         component: componentRef,
         props,
         size: options.size || 'md', // 기본 사이즈는 'md'

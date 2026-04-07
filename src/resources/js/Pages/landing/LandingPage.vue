@@ -1,36 +1,58 @@
 <template>
-    <list-layout
-        ref="listLayoutRef"
-        :dataSource="gridDataSource"
-        :gridColumns="gridColumnsData"
-        :gridOptions="gridOptionsData"
-        @grid-updated="onGridUpdated"
-        @grid-mounted="onGridMounted"
-        @grid-click="onGridClick">
-        <template #left-button-area>
-            <button class="basic-btn left-btn-01 h-full mr-2" type="button">버튼1</button>
-            <button class="basic-btn left-btn-02 h-full" type="button">버튼2</button>
-        </template>
-    </list-layout>
+    <div class="flex flex-col h-full">
+        <div class="flex w-full h-[35px]">
+            <div>
+                <button class="basic-btn left-btn-01 h-full mr-2" type="button" @click="buttonClick">Alert</button>
+                <button class="basic-btn left-btn-01 h-full" type="button" @click="buttonClick2">Confirm</button>
+            </div>
+            <div class="flex-1"></div>
+            <div class="flex">
+                <basic-select
+                    :selectMenuOptions="selectMenuOptions"
+                    @searchClick="handleSearch">
+                </basic-select>
+            </div>
+        </div>
+        <list-layout
+            ref="listLayoutRef"
+            :dataSource="gridDataSource"
+            :gridColumns="gridColumnsData"
+            :gridOptions="gridOptionsData"
+            @grid-updated="onGridUpdated"
+            @grid-mounted="onGridMounted"
+            @grid-click="onGridClick">
+        </list-layout>
+    </div>
 </template>
 
 <script setup>
 import { ref } from 'vue';
-import ListLayout from '@/components/listLayout.vue';
 import { useModalStore } from '@/stores/modalStore';
-import UserDetail from '@/components/modals/UserDetails.vue';
 import AppLayout from '@/Layouts/AppLayout.vue';
+import { showAlert } from '@/utils/message.js';
+import { CheckboxRenderer } from '@/composables/gridClass';
+import ListLayout from '@/components/ListLayout.vue';
+import UserDetail from '@/components/modals/UserDetails.vue';
+import BasicSelect from '@/components/basic/BasicSelect.vue';
 
 defineOptions({
     layout: AppLayout
-})
+});
 
 const modalStore = useModalStore();
+const listLayoutRef = ref( null );
+
+const selectMenuOptions = [
+    { label: "통합검색", value: "all" },
+    { label: "이름", value: "name" },
+    { label: "코드", value: "code" },
+];
 
 const gridDataSource = ref([]);
 const gridColumnsData = [{
     header: "컬럼1",
     name: "columns_1",
+    className: "cursor-pointer",
     minWidth: 100,
     align: "center",
     formatter: ({ value }) => value ? value : "-"
@@ -38,6 +60,7 @@ const gridColumnsData = [{
 {
     header: "컬럼2",
     name: "columns_2",
+    className: "cursor-pointer",
     minWidth: 100,
     align: "center",
     formatter: ({ value }) => value ? value : "-"
@@ -54,21 +77,37 @@ const gridColumnsData = [{
 
 const gridOptionsData = {
     rowHeaders: [{
-        type: "checkbox"
+        type: "checkbox",
+        header: `<label for="all-checkbox" class="checkbox">
+                    <input type="checkbox" id="all-checkbox" class="hidden-input" name="_checked" />
+                    <span class="custom-input"></span>
+                 </label>`,
+        renderer: {
+            type: CheckboxRenderer
+        }
     }],
     scrollY: true
 }
 
 const onGridUpdated = (ev) => {
-    console.log( 'LandingPage - onGridUpdated', ev );
+    // console.log( 'LandingPage - onGridUpdated', ev );
 };
 
 const onGridMounted = (ev) => {
-    console.log( 'LandingPage - onGridMounted', ev );
+    // let row_data = listLayoutRef.value?.gridInstance?.getData();
+
+    // console.log( row_data );
 };
 
 const onGridClick = (ev) => {
-    console.log( 'LandingPage - onGridClick', ev);
+    let rowKey     = ev.rowKey;
+    let columnName = ev.columnName;
+
+    const excludeColumns = ["_checked", "columns_3"];
+
+    if( rowKey == null || excludeColumns.includes( columnName ) ) {
+        return false;
+    };
 
     // 임시 사용자 데이터 (실제로는 ev 객체에서 클릭된 행의 데이터를 가져와야 함)
     const dummyUser = {
@@ -85,6 +124,26 @@ const onGridClick = (ev) => {
     };
 
     modalStore.open( UserDetail, { user: dummyUser }, modalOptions );
+};
+
+const handleSearch = async () => {
+    console.log( 'handleSearch' );
+};
+
+const buttonClick = async () => {
+    const result = await showAlert( 'Alert', 'Alert Message', 'info', 'alert' );
+
+    console.log( result );
+};
+
+const buttonClick2 = async () => {
+    let options = {
+        buttonsStyling: true
+    };
+
+    const result = await showAlert( 'Alert', 'Alert Message', 'info', 'confirm', options );
+
+    console.log( result );
 };
 
 </script>

@@ -1,97 +1,164 @@
 <template>
-  <li class="my-1">
-    <div
-      class="flex items-center justify-between p-1 rounded hover:bg-gray-200"
-      :class="{ 'cursor-pointer': hasChildren }"
-      @click="hasChildren ? toggle() : null"
-    >
-      <component :is="menuIcon" class="h-5 w-5 mr-2" />
-      <span v-if="hasChildren" class="flex-grow flex items-center text-[15px]">
-        {{ menuItem.menu_name }}
-      </span>
-      <Link v-else :href="itemHref" class="flex-grow flex items-center text-[15px]">
-        {{ menuItem.menu_name }}
-      </Link>
-
-      <span v-if="hasChildren" class="icon-wrapper">
-        <svg
-          class="w-4 h-4 transform transition-transform duration-300 ease-in-out"
-          :class="{ 'rotate-90': expanded }"
-          fill="none"
-          stroke="currentColor"
-          viewBox="0 0 24 24"
-          xmlns="http://www.w3.org/2000/svg"
+    <li class="my-1">
+        <div
+        class="flex items-center justify-between p-1 rounded hover:bg-gray-200"
+        :class="{ 'cursor-pointer': hasChildren, 'bg-gray-200 font-bold': isActive }"
+        @click="hasChildren ? toggle() : null"
         >
-          <path
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            stroke-width="2"
-            d="M9 5l7 7-7 7"
-          />
-        </svg>
-      </span>
-    </div>
+            <component v-if="menuIcon" :is="menuIcon" class="h-5 w-5 mr-2" />
+            <span v-if="hasChildren" class="flex-grow flex items-center text-[15px]">
+                {{ menuItem.menu_name }}
+            </span>
+            <Link v-else :href="itemHref" class="flex-grow flex items-center text-[15px]">
+                {{ menuItem.menu_name }}
+            </Link>
 
-    <ul
-      v-if="hasChildren"
-      ref="subMenuRef"
-      class="sub-menu overflow-hidden pl-4 ml-2"
-      :style="{ maxHeight: expanded ? subMenuHeight + 'px' : '0px', transition: 'max-height 0.3s ease' }"
-    >
-      <MenuItem
-        v-for="child in menuItem.children"
-        :key="child.menu_idx ?? child.id ?? child.menu_route_name ?? child.menu_name"
-        :menu-item="child"
-      />
-    </ul>
-  </li>
+            <span v-if="hasChildren" class="icon-wrapper">
+                <svg
+                class="w-4 h-4 transform transition-transform duration-300 ease-in-out"
+                :class="{ 'rotate-90': expanded }"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+                xmlns="http://www.w3.org/2000/svg"
+                >
+                <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M9 5l7 7-7 7"
+                />
+                </svg>
+            </span>
+        </div>
+
+        <ul
+        v-if="hasChildren"
+        ref="subMenuRef"
+        class="sub-menu overflow-hidden pl-4 ml-2"
+        :style="{ maxHeight: subMenuMaxHeight, transition: 'max-height 0.3s ease' }"
+        >
+            <MenuItem
+                v-for="child in menuItem.children"
+                :key="child.menu_idx ?? child.id ?? child.menu_route_name ?? child.menu_name"
+                :menu-item="child"
+            >
+            </MenuItem>
+        </ul>
+    </li>
 </template>
 
 <script setup>
-import { ref, computed, nextTick } from 'vue';
+import { ref, computed, nextTick, watch, onMounted, onUnmounted } from 'vue';
 import { route } from 'ziggy-js';
-import { Link } from '@inertiajs/vue3';
+import { Link, usePage, router } from '@inertiajs/vue3';
 import MenuItem from './MenuItem.vue';
 import * as OutlineIcons from '@heroicons/vue/24/outline';
 
-const menuIcon = computed(() =>
-  OutlineIcons[props.menuItem.menu_icon] ?? OutlineIcons['Bars2Icon']
-);
+const page = usePage();
+const currentUrl = ref( page.url );
 
-const props = defineProps({
-  menuItem: {
-    type: Object,
-    required: true,
-  },
+let removeListener = null;
+
+onMounted(() => {
+    removeListener = router.on('navigate', (event) => {
+        currentUrl.value = event.detail.page.url;
+    });
 });
 
-const expanded = ref(false);
-const subMenuRef = ref(null);
-const subMenuHeight = ref(0);
+onUnmounted(() => {
+    removeListener?.();
+});
+
+const props = defineProps({
+    menuItem: {
+        type: Object,
+        required: true,
+    },
+});
 
 const hasChildren = computed(() =>
-  Array.isArray(props.menuItem.children) && props.menuItem.children.length > 0
+    Array.isArray(props.menuItem.children) && props.menuItem.children.length > 0
 );
 
+const isActive = computed(() => {
+    if (!props.menuItem.menu_route_name) return false;
+    try {
+        const menuPath = route(props.menuItem.menu_route_name, undefined, false);
+        return currentUrl.value === menuPath || currentUrl.value === menuPath + '/';
+    } catch {
+        return false;
+    }
+});
+
+const hasActiveChild = (item) => {
+    if (!Array.isArray(item.children)) return false;
+    return item.children.some(child => {
+        if (child.menu_route_name) {
+            try {
+                const childPath = route(child.menu_route_name, undefined, false);
+                if (currentUrl.value === childPath || currentUrl.value === childPath + '/') return true;
+            } catch {
+                console.log( "hasActiveChild Error" );
+            }
+        }
+        return hasActiveChild(child);
+    });
+};
+
+const menuIcon = computed(() =>
+    OutlineIcons[props.menuItem.menu_icon] ?? null
+);
+
+const shouldExpand = () => hasChildren.value && hasActiveChild(props.menuItem);
+const expanded = ref(shouldExpand());
+const subMenuRef = ref(null);
+const subMenuMaxHeight = ref(expanded.value ? 'none' : '0px');
+
+watch(currentUrl, () => {
+  if (hasChildren.value) {
+    const active = hasActiveChild(props.menuItem);
+    if (active && !expanded.value) {
+        expanded.value = true;
+        subMenuMaxHeight.value = 'none';
+    } else if (!active && expanded.value) {
+        subMenuMaxHeight.value = subMenuRef.value?.scrollHeight + 'px';
+        requestAnimationFrame(() => {
+            subMenuMaxHeight.value = '0px';
+        });
+        expanded.value = false;
+    }
+  }
+});
+
 const itemHref = computed(() => {
-  if (!props.menuItem.menu_route_name) {
-    return '#';
-  }
-  try {
-    return route(props.menuItem.menu_route_name);
-  } catch {
-    return '#';
-  }
+    if (!props.menuItem.menu_route_name) {
+        return '#';
+    }
+    try {
+        return route(props.menuItem.menu_route_name);
+    } catch {
+        return '#';
+    }
 });
 
 const toggle = async () => {
-  if (!expanded.value) {
-    expanded.value = true;
-    await nextTick();
-    subMenuHeight.value = subMenuRef.value?.scrollHeight ?? 0;
-  } else {
-    subMenuHeight.value = 0;
-    expanded.value = false;
-  }
+    if (!expanded.value) {
+        expanded.value = true;
+        await nextTick();
+        const height = subMenuRef.value?.scrollHeight ?? 0;
+        subMenuMaxHeight.value = height + 'px';
+        // 트랜지션 후 none으로 변경하여 자식 메뉴 확장 허용
+        setTimeout(() => {
+            subMenuMaxHeight.value = 'none';
+        }, 300);
+    } else {
+        // 닫을 때: 현재 높이를 설정한 뒤 0으로 전환해야 트랜지션 작동
+        subMenuMaxHeight.value = subMenuRef.value?.scrollHeight + 'px';
+        requestAnimationFrame(() => {
+            subMenuMaxHeight.value = '0px';
+        });
+        expanded.value = false;
+    }
 };
 </script>

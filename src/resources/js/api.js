@@ -2,18 +2,18 @@ import axios from 'axios';
 
 // 1. Axios 인스턴스를 생성하고 기본 설정을 구성합니다.
 const apiClient = axios.create({
-  // 2. 모든 요청의 기본이 될 URL 주소입니다.
-  //    이제 요청 시 '/users' 라고만 적어도 '/api/users'로 전송됩니다.
-  baseURL: '/api',
+    // 2. 모든 요청의 기본이 될 URL 주소입니다.
+    //    이제 요청 시 '/users' 라고만 적어도 '/api/users'로 전송됩니다.
+    baseURL: '/api',
 
-  // 3. 모든 요청에 기본으로 포함될 헤더입니다.
-  headers: {
-    'Content-Type': 'application/json',
-    'X-Requested-With': 'XMLHttpRequest', // Laravel이 Ajax 요청임을 인지하도록 돕습니다.
-  },
+    // 3. 모든 요청에 기본으로 포함될 헤더입니다.
+    headers: {
+        'Content-Type': 'application/json',
+        'X-Requested-With': 'XMLHttpRequest', // Laravel이 Ajax 요청임을 인지하도록 돕습니다.
+    },
 
-  // 4. 요청이 10초 이상 걸리면 타임아웃으로 처리합니다.
-  timeout: 10000,
+    // 4. 요청이 10초 이상 걸리면 타임아웃으로 처리합니다.
+    timeout: 10000,
 });
 
 /**
