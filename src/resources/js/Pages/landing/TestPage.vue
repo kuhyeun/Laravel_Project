@@ -1,5 +1,5 @@
 <script setup>
-import AppLayout from '@/Layouts/AppLayout.vue';
+import AppLayout from '@core/Layouts/AppLayout.vue';
 
 defineOptions({
     layout: AppLayout

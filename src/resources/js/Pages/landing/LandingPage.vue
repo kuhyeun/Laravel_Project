@@ -27,13 +27,13 @@
 
 <script setup>
 import { ref } from 'vue';
-import { useModalStore } from '@/stores/modalStore';
-import AppLayout from '@/Layouts/AppLayout.vue';
-import { showAlert } from '@/utils/message.js';
-import { CheckboxRenderer } from '@/composables/gridClass';
-import ListLayout from '@/components/ListLayout.vue';
-import UserDetail from '@/components/modals/UserDetails.vue';
-import BasicSelect from '@/components/basic/BasicSelect.vue';
+import { useModalStore } from '@core/Stores/modalStore';
+import AppLayout from '@core/Layouts/AppLayout.vue';
+import { showAlert } from '@core/Utils/message.js';
+import { CheckboxRenderer } from '@core/Composables/gridClass';
+import ListLayout from '@core/Components/ListLayout.vue';
+import UserDetail from '@core/Components/modals/UserDetails.vue';
+import BasicSelect from '@core/Components/basic/BasicSelect.vue';
 
 defineOptions({
     layout: AppLayout

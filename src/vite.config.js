@@ -4,6 +4,9 @@ import vue from '@vitejs/plugin-vue';
 import svgLoader from 'vite-svg-loader';
 import path from 'path';
 
+const coreJsPath = path.resolve(__dirname, '../packages/mes-core/resources/js');
+const nodeModulesPath = path.resolve(__dirname, 'node_modules');
+
 export default defineConfig({
     plugins: [
         laravel({
@@ -15,7 +18,17 @@ export default defineConfig({
     resolve: {
         alias: {
             '@': path.resolve(__dirname, 'resources/js'),
+            '@core': coreJsPath,
             'vue': 'vue/dist/vue.esm-bundler.js',
+            // packages/ 내부에서 import하는 npm 모듈을 src/node_modules에서 찾도록
+            'tui-grid': path.resolve(nodeModulesPath, 'tui-grid'),
+            'tui-grid/dist/tui-grid.css': path.resolve(nodeModulesPath, 'tui-grid/dist/tui-grid.css'),
+            'ziggy-js': path.resolve(nodeModulesPath, 'ziggy-js'),
+            'pinia': path.resolve(nodeModulesPath, 'pinia'),
+            'sweetalert2': path.resolve(nodeModulesPath, 'sweetalert2'),
+            '@heroicons/vue/24/solid': path.resolve(nodeModulesPath, '@heroicons/vue/24/solid'),
+            '@heroicons/vue/24/outline': path.resolve(nodeModulesPath, '@heroicons/vue/24/outline'),
+            '@inertiajs/vue3': path.resolve(nodeModulesPath, '@inertiajs/vue3'),
         },
     },
     server: {
@@ -25,7 +38,14 @@ export default defineConfig({
             host: '127.0.0.1'
         },
         watch: {
-            usePolling: true
-        }
+            usePolling: true,
+            paths: [coreJsPath],
+        },
+        fs: {
+            allow: [
+                path.resolve(__dirname),
+                coreJsPath,
+            ],
+        },
     }
 });

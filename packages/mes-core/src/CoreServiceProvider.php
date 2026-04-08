@@ -1,0 +1,68 @@
+<?php
+
+namespace MesCore;
+
+use Illuminate\Support\ServiceProvider;
+use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\View;
+use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\Auth;
+use MesCore\Auth\Models\User;
+use MesCore\Auth\Observers\UserObserver;
+
+class CoreServiceProvider extends ServiceProvider {
+
+    public function register(): void {
+        $this->mergeConfigFrom(
+            __DIR__ . '/../config/mes.php', 'mes'
+        );
+    }
+
+    public function boot(): void {
+        // Config 퍼블리시 (업체에서 config/mes.php 커스텀 가능)
+        $this->publishes([
+            __DIR__ . '/../config/mes.php' => config_path('mes.php'),
+        ], 'mes-core-config');
+
+        // 마이그레이션 등록
+        $this->loadMigrationsFrom(__DIR__ . '/../database/migrations');
+
+        // 라우트 등록
+        $this->loadRoutes();
+
+        // Observer 등록
+        User::observe(UserObserver::class);
+
+        // 세션 데이터 공유
+        View::composer('*', function ($view) {
+            if( Auth::check() ) {
+                $sessionData = (object) [
+                    'userId'    => Session::get('user_id'),
+                    'userIdx'   => Session::get('user_idx'),
+                    'userLevel' => Session::get('user_level'),
+                    'userName'  => Session::get('user_name'),
+                    'partCode'  => Session::get('part_code'),
+                ];
+
+                $view->with('mSession', $sessionData);
+            }
+        });
+    }
+
+    protected function loadRoutes(): void {
+        Route::middleware('web')->group(function () {
+            // Core 라우트
+            $this->loadRoutesFrom(__DIR__ . '/Auth/routes.php');
+            $this->loadRoutesFrom(__DIR__ . '/Menu/routes.php');
+            $this->loadRoutesFrom(__DIR__ . '/Basic/routes.php');
+
+            // 모듈 라우트 자동 로딩
+            foreach (config('mes.modules', []) as $module) {
+                $path = base_path("app/Modules/{$module}/routes.php");
+                if (file_exists($path)) {
+                    $this->loadRoutesFrom($path);
+                }
+            }
+        });
+    }
+}

@@ -12,11 +12,11 @@ return Application::configure(basePath: dirname(__DIR__))
     )
     ->withMiddleware(function (Middleware $middleware) {
         $middleware->web(append: [
-            \App\Http\Middleware\HandleInertiaRequests::class,
+            \MesCore\Http\HandleInertiaRequests::class,
         ]);
         $middleware->alias([
-            'auth.admin' => \App\Http\Middleware\AdminAuth::class,
-            'auth.user' => \App\Http\Middleware\UserAuth::class,
+            'auth.admin' => \MesCore\Auth\Middleware\AdminAuth::class,
+            'auth.user' => \MesCore\Auth\Middleware\UserAuth::class,
         ]);
     })
     ->withExceptions(function (Exceptions $exceptions) {

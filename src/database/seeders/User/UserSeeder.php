@@ -5,7 +5,7 @@ namespace Database\Seeders\User;
 use Illuminate\Database\Eloquent\Factories\Sequence;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Database\Seeder;
-use App\Models\User\User;
+use MesCore\Auth\Models\User;
 
 class UserSeeder extends Seeder {
 

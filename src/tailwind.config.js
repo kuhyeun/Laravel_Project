@@ -8,6 +8,8 @@ export default {
         './resources/**/*.blade.php',
         './resources/**/*.js',
         './resources/**/*.vue',
+        '../packages/mes-core/resources/js/**/*.vue',
+        '../packages/mes-core/resources/js/**/*.js',
     ],
     theme: {
         container: {
