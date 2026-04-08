@@ -2,7 +2,7 @@
 
 namespace Database\Seeders\Menu;
 
-use App\Models\Menu\Menu;
+use MesCore\Menu\Models\Menu;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 
@@ -27,6 +27,7 @@ class MenuSeeder extends Seeder {
                 'menu_name' => $menuData['menu_name'],
                 'menu_icon' => $menuData['menu_icon'],
                 'menu_level' => $level,
+                'module_code' => $menuData['module_code'] ?? '',
                 'menu_route_name' => $menuData['menu_route_name'],
                 'is_use' => 'Y',
                 'is_display' => 'Y',

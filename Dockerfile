@@ -11,3 +11,10 @@ RUN curl -fsSL https://deb.nodesource.com/setup_20.x | bash - \
 
 # Install Composer
 COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
+
+# Entrypoint 스크립트 복사
+COPY docker-entrypoint.sh /usr/local/bin/docker-entrypoint.sh
+RUN chmod +x /usr/local/bin/docker-entrypoint.sh
+
+ENTRYPOINT ["docker-entrypoint.sh"]
+CMD ["php-fpm"]
