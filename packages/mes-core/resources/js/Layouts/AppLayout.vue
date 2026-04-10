@@ -5,7 +5,7 @@
         </header>
 
         <div class="flex flex-1 overflow-hidden">
-            <aside id="app-sidebar" class="app-sidebar w-[250px] border-r transition-all duration-300 ease-in-out overflwo-y-auto overflow-x-hidden">
+            <aside id="app-sidebar" class="app-sidebar w-[250px] border-r transition-all duration-300 ease-in-out overflow-y-auto overflow-x-hidden">
                 <left-menu :menu-items="menuItems"></left-menu>
             </aside>
 

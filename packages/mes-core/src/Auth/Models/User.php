@@ -19,6 +19,7 @@ class User extends Authenticatable {
     protected $table      = 'account_member';
     protected $primaryKey = 'account_idx';
     public $incrementing  = true;
+    public $timestamps    = true;
 
     protected $fillable = [
         'user_id',
@@ -29,6 +30,7 @@ class User extends Authenticatable {
         'update_account_idx',
     ];
 
+    // DB 조회 후 toArray() 또는 toJson()으로 변환시 자동으로 빠짐
     protected $hidden = [
         'user_pw',
     ];
@@ -41,8 +43,6 @@ class User extends Authenticatable {
             'update_datetime' => 'datetime',
         ];
     }
-
-    public $timestamps = true;
 
     public function username(): string {
         return 'user_id';

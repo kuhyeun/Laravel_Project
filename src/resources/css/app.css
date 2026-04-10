@@ -1,44 +1,7 @@
-@import './grid.css';
+@import '@core-css/core.css';
 
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-/* Scrollbar Styles */
-::-webkit-scrollbar {
-  width: 6px;
-}
-::-webkit-scrollbar-track {
-  background: transparent;
-}
-::-webkit-scrollbar-thumb {
-  background-color: rgba(0, 0, 0, 0.2);
-  border-radius: 10px;
-}
-::-webkit-scrollbar-thumb:hover {
-  background-color: rgba(0, 0, 0, 0.4);
-}
-
-/* Sidebar Animation Styles */
-html.sidebar-collapsed #app-sidebar {
-    width: 0;
-    padding-left: 0;
-    padding-right: 0;
-    overflow: hidden;
-}
-
-/* Base Layout Styles (Lower Priority) */
-@layer components {
-    html, body {
-        height: 100%;
-        margin: 0;
-    }
-
-    input:focus, select:focus {
-      outline: none;
-    }
-
-    .basic-btn {
-      @apply text-[14px] font-bold px-4 rounded border transition-colors duration-300 hover:bg-gray-300;
-    }
-}
+/* 업체 전용 스타일은 여기에 추가 */

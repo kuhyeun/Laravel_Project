@@ -12,7 +12,6 @@
                 <InformationCircleIcon class="h-5 w-5 fill-gray-700"/>
             </button>
             <Link :href="route('user.dashboard')" class="text-gray-700 hover:text-blue-500">DashBoard</Link>
-            <Link :href="route('user.dashboard2')" class="text-gray-700 hover:text-blue-500">DashBoard2</Link>
             <a :href="route('user.logout')" class="text-gray-700 hover:text-blue-500">Logout</a>
         </div>
     </div>

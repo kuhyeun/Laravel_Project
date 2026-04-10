@@ -14,7 +14,7 @@ class MenuOptionFactory extends Factory {
 
     public function definition(): array {
         return [
-            'user_level' => $this->faker->numberBetween(1, 9),
+            'menu_level' => 99,
             'menu_sort' => $this->faker->randomDigitNotNull,
             'create_account_idx' => 1,
         ];

@@ -25,7 +25,6 @@ Route::prefix('user')->name('user.')->group(function() {
     // 로그인된 사용자 접근
     Route::middleware([UserAuth::class])->group(function() {
         Route::get('/dashboard', [UserController::class, 'dashboard'])->name('dashboard');
-        Route::get('/dashboard2', [UserController::class, 'dashboard2'])->name('dashboard2');
         Route::get('/logout', [UserController::class, 'logout'])->name('logout');
     });
 

@@ -25,7 +25,7 @@ class Menu extends Model {
         'menu_code',
         'parent_menu_code',
         'top_menu_code',
-        'menu_level',
+        'menu_depth',
         'module_code',
         'menu_route_name',
         'is_use',
@@ -49,7 +49,7 @@ class Menu extends Model {
             'top_menu_code'    => 'required|string|max:30',
             'parent_menu_code' => 'nullable|string|max:30|exists:system_menu,menu_code',
             'menu_name'        => 'required|string|max:50',
-            'menu_level'       => 'required|integer|min:1',
+            'menu_depth'       => 'required|integer|min:1',
             'menu_route_name'  => 'nullable|string|max:50',
             'is_use'           => 'sometimes|in:Y,N',
             'is_display'       => 'sometimes|in:Y,N',
@@ -67,10 +67,10 @@ class Menu extends Model {
             ]));
 
             $menu->menuOptions()->createMany([
-                ['user_level' => 0, 'menu_sort' => 99, 'create_account_idx' => Auth::id()],
-                ['user_level' => 1, 'menu_sort' => 99, 'create_account_idx' => Auth::id()],
-                ['user_level' => 10, 'menu_sort' => 99, 'create_account_idx' => Auth::id()],
-                ['user_level' => 99, 'menu_sort' => 99, 'create_account_idx' => Auth::id()],
+                ['menu_level' => 0, 'menu_sort' => 99, 'create_account_idx' => Auth::id()],
+                ['menu_level' => 1, 'menu_sort' => 99, 'create_account_idx' => Auth::id()],
+                ['menu_level' => 10, 'menu_sort' => 99, 'create_account_idx' => Auth::id()],
+                ['menu_level' => 99, 'menu_sort' => 99, 'create_account_idx' => Auth::id()],
             ]);
 
             return $menu;
@@ -87,8 +87,8 @@ class Menu extends Model {
             ]));
 
             $menu->menuOptions()->createMany([
-                ['user_level' => 0, 'menu_sort' => 99, 'create_account_idx' => Auth::id()],
-                ['user_level' => 1, 'menu_sort' => 99, 'create_account_idx' => Auth::id()],
+                ['menu_level' => 0, 'menu_sort' => 99, 'create_account_idx' => Auth::id()],
+                ['menu_level' => 1, 'menu_sort' => 99, 'create_account_idx' => Auth::id()],
             ]);
 
             return $menu;

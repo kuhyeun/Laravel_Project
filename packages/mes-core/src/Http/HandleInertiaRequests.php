@@ -25,18 +25,21 @@ class HandleInertiaRequests extends Middleware {
 
         return Cache::remember($user->getMenuCacheKey(), 60, function () use ($user) {
             $userLevel = $user->user_level;
+            $activeModules = array_merge(['Basic'], config('mes.modules', []));
 
-            $menus = Menu::where('is_use', 'Y')
+            $menus = Menu::select('menu_name','menu_code','parent_menu_code','menu_route_name','menu_icon','menu_depth')
+                ->where('is_use', 'Y')
                 ->where('is_display', 'Y')
+                ->whereIn('module_code', $activeModules)
                 ->whereHas('menuOptions', function ($query) use ($userLevel) {
-                    $query->where('user_level', $userLevel);
+                    $query->where('menu_level', $userLevel);
                 })
                 ->with(['menuOptions' => function ($query) use ($userLevel) {
-                    $query->where('user_level', $userLevel)->orderBy('menu_sort', 'asc');
+                    $query->where('menu_level', $userLevel)->orderBy('menu_sort', 'asc');
                 }])
                 ->get()
                 ->sortBy(function ($menu) {
-                    return $menu->menu_level . '-' . ($menu->menuOptions->first()->menu_sort ?? 0);
+                    return $menu->menu_depth . '-' . ($menu->menuOptions->first()->menu_sort ?? 0);
                 });
 
             return $this->buildMenuTree($menus);

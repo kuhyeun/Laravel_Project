@@ -52,9 +52,9 @@ class CoreServiceProvider extends ServiceProvider {
     protected function loadRoutes(): void {
         Route::middleware('web')->group(function () {
             // Core 라우트
-            $this->loadRoutesFrom(__DIR__ . '/Auth/routes.php');
-            $this->loadRoutesFrom(__DIR__ . '/Menu/routes.php');
-            $this->loadRoutesFrom(__DIR__ . '/Basic/routes.php');
+            $this->loadRoutesFrom(__DIR__ . '/../routes/auth.php');
+            $this->loadRoutesFrom(__DIR__ . '/../routes/menu.php');
+            $this->loadRoutesFrom(__DIR__ . '/../routes/basic.php');
 
             // 모듈 라우트 자동 로딩
             foreach (config('mes.modules', []) as $module) {

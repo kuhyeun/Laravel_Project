@@ -18,28 +18,27 @@ class MenuSeeder extends Seeder {
         $this->setMenuSort();
     }
 
-    private function seedMenu( Array $menuData, String $topMenuCode, String $parentMenuCode = "", int $level = 1 ): void {
+    private function seedMenu( Array $menuData, String $topMenuCode, String $parentMenuCode = "", int $depth = 1 ): void {
         $menu = Menu::updateOrCreate(
             ['menu_code' => $menuData['menu_code']],
             [
-                'top_menu_code' => $level == 1 ? '****': $topMenuCode,
-                'parent_menu_code' => $level == 1 ? null : $parentMenuCode,
+                'top_menu_code' => $depth == 1 ? '****': $topMenuCode,
+                'parent_menu_code' => $depth == 1 ? null : $parentMenuCode,
                 'menu_name' => $menuData['menu_name'],
                 'menu_icon' => $menuData['menu_icon'],
-                'menu_level' => $level,
+                'menu_depth' => $depth,
                 'module_code' => $menuData['module_code'] ?? '',
                 'menu_route_name' => $menuData['menu_route_name'],
                 'is_use' => 'Y',
                 'is_display' => 'Y',
-                'is_admin' => $menuData['is_admin'],
                 'create_account_idx' => 1
             ]
         );
 
-        $this->seedMenuOptions( $menu );
+        $this->seedMenuOptions( $menu, $menuData['menu_level'] );
 
         if( !empty( $menuData['children'] ) ) {
-            $childLevel     = ++$level;
+            $childLevel     = ++$depth;
             $parentMenuCode = $menuData['menu_code'];
 
             foreach( $menuData['children'] as $childMenuData ) {
@@ -48,17 +47,20 @@ class MenuSeeder extends Seeder {
         }
     }
 
-    private function seedMenuOptions( Menu $menu ): void {
-        $menu_levels = [ 0, 1, 10, 99 ];
+    private function seedMenuOptions( Menu $menu, int $menuLevel ): void {
+        $menuLevels    = [ 0, 1, 10, 99 ];
+        $setMenuLevels = [];
 
-        if( $menu->is_admin == 'Y' ) {
-            $menu_levels = [ 0, 1 ];
+        foreach( $menuLevels as $lvl ) {
+            if( $lvl <= $menuLevel ) {
+                $setMenuLevels[] = $lvl;
+            }
         }
 
-        foreach( $menu_levels as $level ) {
+        foreach( $setMenuLevels as $level ) {
             $menu->menuOptions()->updateOrCreate(
                 [
-                    'user_level' => $level
+                    'menu_level' => $level
                 ],
                 [
                     'menu_sort' => 1,
@@ -73,8 +75,8 @@ class MenuSeeder extends Seeder {
             WITH MenuSortCTE AS (
                 SELECT smo.menu_option_idx,
                        ROW_NUMBER() OVER (
-                           PARTITION BY sm.parent_menu_code, smo.user_level
-                           ORDER BY sm.menu_level, sm.menu_code
+                           PARTITION BY sm.parent_menu_code, smo.menu_level
+                           ORDER BY sm.menu_depth, sm.menu_code
                        ) AS rn
                   FROM system_menu AS sm
                  INNER JOIN system_menu_option AS smo ON sm.menu_idx = smo.menu_idx

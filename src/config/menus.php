@@ -7,48 +7,56 @@ return [
                 'menu_icon' => 'Cog6ToothIcon',
                 'module_code' => 'Basic',
                 'menu_route_name' => '',
-                'is_admin' => 'N',
+                'menu_level' => 99,
                 'children' => [
                     [
                         'menu_code' => '1001',
-                        'menu_name' => '사이트 설정',
+                        'menu_name' => '시스템 설정',
                         'menu_icon' => null,
                         'module_code' => 'Basic',
-                        'menu_route_name' => '',
-                        'is_admin' => 'Y',
+                        'menu_route_name' => 'basic.conf',
+                        'menu_level' => 0
                     ],
                     [
                         'menu_code' => '1002',
-                        'menu_name' => '자사정보관리',
-                        'menu_icon' => null,
-                        'module_code' => 'Basic',
-                        'menu_route_name' => '',
-                        'is_admin' => 'N',
-                    ],
-                    [
-                        'menu_code' => '1003',
-                        'menu_name' => '사용자관리',
-                        'menu_icon' => null,
-                        'module_code' => 'Basic',
-                        'menu_route_name' => '',
-                        'is_admin' => 'Y',
-                    ],
-                    [
-                        'menu_code' => '1004',
-                        'menu_name' => '사용자권한관리',
-                        'menu_icon' => null,
-                        'module_code' => 'Basic',
-                        'menu_route_name' => '',
-                        'is_admin' => 'Y',
-                    ],
-                    [
-                        'menu_code' => '1005',
                         'menu_name' => '메뉴관리',
                         'menu_icon' => null,
                         'module_code' => 'Basic',
-                        'menu_route_name' => '',
-                        'is_admin' => 'Y',
+                        'menu_route_name' => 'basic.menu',
+                        'menu_level' => 0
                     ],
+                    [
+                        'menu_code' => '1003',
+                        'menu_name' => '환경설정',
+                        'menu_icon' => null,
+                        'module_code' => 'Basic',
+                        'menu_route_name' => 'basic.pref',
+                        'menu_level' => 10,
+                    ],
+                    [
+                        'menu_code' => '1004',
+                        'menu_name' => '사용자관리',
+                        'menu_icon' => null,
+                        'module_code' => 'Basic',
+                        'menu_route_name' => 'basic.mem',
+                        'menu_level' => 10
+                    ],
+                    [
+                        'menu_code' => '1005',
+                        'menu_name' => '사용자권한관리',
+                        'menu_icon' => null,
+                        'module_code' => 'Basic',
+                        'menu_route_name' => 'basic.auth',
+                        'menu_level' => 10
+                    ],
+                    [
+                        'menu_code' => '1006',
+                        'menu_name' => '코드관리',
+                        'menu_icon' => null,
+                        'module_code' => 'Basic',
+                        'menu_route_name' => 'basic.code',
+                        'menu_level' => 0
+                    ]
                 ],
             ],
             [
@@ -57,7 +65,7 @@ return [
                 'menu_icon' => 'ClipboardIcon',
                 'module_code' => 'Order',
                 'menu_route_name' => '',
-                'is_admin' => 'N',
+                'menu_level' => 99,
                 'children' => [
                     [
                         'menu_code' => '2001',
@@ -65,7 +73,7 @@ return [
                         'menu_icon' => null,
                         'module_code' => 'Order',
                         'menu_route_name' => '',
-                        'is_admin' => 'N',
+                        'menu_level' => 99,
                     ],
                     [
                         'menu_code' => '2002',
@@ -73,7 +81,7 @@ return [
                         'menu_icon' => null,
                         'module_code' => 'Order',
                         'menu_route_name' => '',
-                        'is_admin' => 'N',
+                        'menu_level' => 99,
                     ],
                 ]
             ],
@@ -83,7 +91,7 @@ return [
                 'menu_icon' => 'CircleStackIcon',
                 'module_code' => 'Material',
                 'menu_route_name' => '',
-                'is_admin' => 'N',
+                'menu_level' => 99,
                 'children' => [
                     [
                         'menu_code' => '3001',
@@ -91,7 +99,7 @@ return [
                         'menu_icon' => null,
                         'module_code' => 'Material',
                         'menu_route_name' => '',
-                        'is_admin' => 'N',
+                        'menu_level' => 99,
                     ],
                     [
                         'menu_code' => '3002',
@@ -99,7 +107,7 @@ return [
                         'menu_icon' => null,
                         'module_code' => 'Material',
                         'menu_route_name' => '',
-                        'is_admin' => 'N',
+                        'menu_level' => 99,
                     ],
                     [
                         'menu_code' => '3003',
@@ -107,7 +115,7 @@ return [
                         'menu_icon' => null,
                         'module_code' => 'Material',
                         'menu_route_name' => '',
-                        'is_admin' => 'N',
+                        'menu_level' => 99,
                     ],
                     [
                         'menu_code' => '3004',
@@ -115,7 +123,7 @@ return [
                         'menu_icon' => null,
                         'module_code' => 'Material',
                         'menu_route_name' => '',
-                        'is_admin' => 'N',
+                        'menu_level' => 99,
                     ],
                     [
                         'menu_code' => '3005',
@@ -123,7 +131,7 @@ return [
                         'menu_icon' => null,
                         'module_code' => 'Material',
                         'menu_route_name' => '',
-                        'is_admin' => 'N',
+                        'menu_level' => 99,
                     ],
                     [
                         'menu_code' => '3006',
@@ -131,7 +139,7 @@ return [
                         'menu_icon' => null,
                         'module_code' => 'Material',
                         'menu_route_name' => '',
-                        'is_admin' => 'N',
+                        'menu_level' => 99,
                     ],
                 ]
             ],
@@ -141,7 +149,7 @@ return [
                 'menu_icon' => 'ArchiveBoxArrowDownIcon',
                 'module_code' => 'Production',
                 'menu_route_name' => '',
-                'is_admin' => 'N',
+                'menu_level' => 99,
                 'children' => [
                     [
                         'menu_code' => '4001',
@@ -149,7 +157,7 @@ return [
                         'menu_icon' => null,
                         'module_code' => 'Production',
                         'menu_route_name' => '',
-                        'is_admin' => 'N',
+                        'menu_level' => 99,
                     ],
                     [
                         'menu_code' => '4002',
@@ -157,7 +165,7 @@ return [
                         'menu_icon' => null,
                         'module_code' => 'Production',
                         'menu_route_name' => '',
-                        'is_admin' => 'N',
+                        'menu_level' => 99,
                     ],
                     [
                         'menu_code' => '4003',
@@ -165,7 +173,7 @@ return [
                         'menu_icon' => null,
                         'module_code' => 'Production',
                         'menu_route_name' => '',
-                        'is_admin' => 'N',
+                        'menu_level' => 99,
                     ],
                     [
                         'menu_code' => '4004',
@@ -173,7 +181,7 @@ return [
                         'menu_icon' => null,
                         'module_code' => 'Production',
                         'menu_route_name' => '',
-                        'is_admin' => 'N',
+                        'menu_level' => 99,
                     ],
                     [
                         'menu_code' => '4005',
@@ -181,7 +189,7 @@ return [
                         'menu_icon' => null,
                         'module_code' => 'Production',
                         'menu_route_name' => '',
-                        'is_admin' => 'N',
+                        'menu_level' => 99,
                         'children' => [
                             [
                                 'menu_code' => '4101',
@@ -189,7 +197,7 @@ return [
                                 'menu_icon' => null,
                                 'module_code' => 'Production',
                                 'menu_route_name' => '',
-                                'is_admin' => 'N',
+                                'menu_level' => 99,
                             ],
                             [
                                 'menu_code' => '4102',
@@ -197,7 +205,7 @@ return [
                                 'menu_icon' => null,
                                 'module_code' => 'Production',
                                 'menu_route_name' => '',
-                                'is_admin' => 'N',
+                                'menu_level' => 99,
                             ],
                         ]
                     ],
@@ -209,7 +217,7 @@ return [
                 'menu_icon' => 'CircleStackIcon',
                 'module_code' => 'Product',
                 'menu_route_name' => '',
-                'is_admin' => 'N',
+                'menu_level' => 99,
                 'children' => [
                     [
                         'menu_code' => '5001',
@@ -217,7 +225,7 @@ return [
                         'menu_icon' => null,
                         'module_code' => 'Product',
                         'menu_route_name' => '',
-                        'is_admin' => 'N',
+                        'menu_level' => 99,
                     ],
                     [
                         'menu_code' => '5002',
@@ -225,7 +233,7 @@ return [
                         'menu_icon' => null,
                         'module_code' => 'Product',
                         'menu_route_name' => '',
-                        'is_admin' => 'N',
+                        'menu_level' => 99,
                     ],
                     [
                         'menu_code' => '5003',
@@ -233,7 +241,7 @@ return [
                         'menu_icon' => null,
                         'module_code' => 'Product',
                         'menu_route_name' => '',
-                        'is_admin' => 'N',
+                        'menu_level' => 99,
                     ],
                     [
                         'menu_code' => '5004',
@@ -241,7 +249,7 @@ return [
                         'menu_icon' => null,
                         'module_code' => 'Product',
                         'menu_route_name' => '',
-                        'is_admin' => 'N',
+                        'menu_level' => 99,
                     ],
                 ]
             ],
@@ -251,7 +259,7 @@ return [
                 'menu_icon' => 'ClipboardDocumentCheckIcon',
                 'module_code' => 'Quality',
                 'menu_route_name' => '',
-                'is_admin' => 'N',
+                'menu_level' => 99,
                 'children' => [
                     [
                         'menu_code' => '6001',
@@ -259,7 +267,7 @@ return [
                         'menu_icon' => null,
                         'module_code' => 'Quality',
                         'menu_route_name' => '',
-                        'is_admin' => 'N',
+                        'menu_level' => 99,
                     ],
                     [
                         'menu_code' => '6002',
@@ -267,7 +275,7 @@ return [
                         'menu_icon' => null,
                         'module_code' => 'Quality',
                         'menu_route_name' => '',
-                        'is_admin' => 'N',
+                        'menu_level' => 99,
                     ],
                     [
                         'menu_code' => '6003',
@@ -275,7 +283,7 @@ return [
                         'menu_icon' => null,
                         'module_code' => 'Quality',
                         'menu_route_name' => '',
-                        'is_admin' => 'N',
+                        'menu_level' => 99,
                     ],
                     [
                         'menu_code' => '6004',
@@ -283,7 +291,7 @@ return [
                         'menu_icon' => null,
                         'module_code' => 'Quality',
                         'menu_route_name' => '',
-                        'is_admin' => 'N',
+                        'menu_level' => 99,
                     ],
                 ]
             ],
@@ -293,7 +301,7 @@ return [
                 'menu_icon' => 'TruckIcon',
                 'module_code' => 'Shipment',
                 'menu_route_name' => '',
-                'is_admin' => 'N',
+                'menu_level' => 99,
                 'children' => [
                     [
                         'menu_code' => '7001',
@@ -301,7 +309,7 @@ return [
                         'menu_icon' => null,
                         'module_code' => 'Shipment',
                         'menu_route_name' => '',
-                        'is_admin' => 'N',
+                        'menu_level' => 99,
                     ],
                     [
                         'menu_code' => '7002',
@@ -309,7 +317,7 @@ return [
                         'menu_icon' => null,
                         'module_code' => 'Shipment',
                         'menu_route_name' => '',
-                        'is_admin' => 'N',
+                        'menu_level' => 99,
                     ],
                     [
                         'menu_code' => '7003',
@@ -317,7 +325,7 @@ return [
                         'menu_icon' => null,
                         'module_code' => 'Shipment',
                         'menu_route_name' => '',
-                        'is_admin' => 'N',
+                        'menu_level' => 99,
                     ],
                 ]
             ],

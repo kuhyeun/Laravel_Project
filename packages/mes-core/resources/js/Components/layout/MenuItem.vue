@@ -1,26 +1,29 @@
 <template>
-    <li class="my-1">
+    <li class="mb-1">
         <div
-        class="flex items-center justify-between p-1 rounded hover:bg-gray-200"
-        :class="{ 'cursor-pointer': hasChildren, 'bg-gray-200 font-bold': isActive }"
-        @click="hasChildren ? toggle() : null"
+            class="flex items-center justify-between h-[32px] px-1 rounded font-inter font-medium hover:bg-gray-200 hover:text-[#2B2D31]"
+            :class="[
+                isActive ? 'bg-gray-200 text-[#2B2D31]' : 'text-[#6C717A]',
+                { 'cursor-pointer': hasChildren }
+            ]"
+            @click="hasChildren ? toggle() : null"
         >
             <component v-if="menuIcon" :is="menuIcon" class="h-5 w-5 mr-2" />
-            <span v-if="hasChildren" class="flex-grow flex items-center text-[15px]">
+            <span v-if="hasChildren" class="flex-grow flex items-center text-[14px]">
                 {{ menuItem.menu_name }}
             </span>
-            <Link v-else :href="itemHref" class="flex-grow flex items-center text-[15px]">
+            <Link v-else :href="itemHref" class="h-full flex-grow flex items-center text-[14px]">
                 {{ menuItem.menu_name }}
             </Link>
 
             <span v-if="hasChildren" class="icon-wrapper">
                 <svg
-                class="w-4 h-4 transform transition-transform duration-300 ease-in-out"
-                :class="{ 'rotate-90': expanded }"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-                xmlns="http://www.w3.org/2000/svg"
+                    class="w-4 h-4 transform transition-transform duration-300 ease-in-out"
+                    :class="{ 'rotate-90': expanded }"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                    xmlns="http://www.w3.org/2000/svg"
                 >
                 <path
                     stroke-linecap="round"
@@ -33,10 +36,10 @@
         </div>
 
         <ul
-        v-if="hasChildren"
-        ref="subMenuRef"
-        class="sub-menu overflow-hidden pl-4 ml-2"
-        :style="{ maxHeight: subMenuMaxHeight, transition: 'max-height 0.3s ease' }"
+            v-if="hasChildren"
+            ref="subMenuRef"
+            class="sub-menu overflow-hidden pl-4 ml-2"
+            :style="{ maxHeight: subMenuMaxHeight, transition: 'max-height 0.3s ease' }"
         >
             <MenuItem
                 v-for="child in menuItem.children"

@@ -13,7 +13,7 @@ return new class extends Migration {
                 table: 'system_menu', 
                 column: 'menu_idx'
             )->onDelete('cascade');
-            $table->integer('user_level')->comment('사용자 권한레벨');
+            $table->integer('menu_level')->comment('메뉴 권한레벨');
             $table->integer('menu_sort')->comment('메뉴 정렬순서');
             $table->integer('create_account_idx')->comment('등록자');
             $table->timestamp('create_datetime')->useCurrent()->comment('등록일');

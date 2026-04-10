@@ -13,12 +13,11 @@ return new class extends Migration {
             $table->string('top_menu_code', 30)->default('****')->comment('최상위 메뉴 코드');
             $table->string('parent_menu_code', 30)->nullable()->comment('부모 메뉴 코드');
             $table->string('menu_name', 50)->comment('메뉴 이름');
-            $table->integer('menu_level')->default(1)->comment('메뉴 레벨');
+            $table->integer('menu_depth')->default(1)->comment('메뉴 깊이');
             $table->string('module_code', 50)->nullbale()->comment('메뉴 모듈코드');
             $table->string('menu_route_name', 50)->nullable()->comment('메뉴 라우팅');
             $table->enum('is_use', ['Y', 'N'])->default('Y')->comment('사용 여부');
             $table->enum('is_display', ['Y', 'N'])->default('Y')->comment('메뉴표시 여부');
-            $table->enum('is_admin', ['Y', 'N'])->default('N')->comment('Y: 관리자 전용, N: 일반');
             $table->integer('create_account_idx')->comment('등록자');
             $table->timestamp('create_datetime')->useCurrent()->comment('등록일');
             $table->integer('update_account_idx')->nullable()->comment('수정자');

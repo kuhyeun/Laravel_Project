@@ -1,5 +1,5 @@
 <template>
-    <div class="h-[50px] px-5 py-3 font-bold">
+    <div class="px-5 py-2 font-bold">
         <p class="text-center">Bottom Frame Area</p>
     </div>
 </template>

@@ -1,10 +1,10 @@
 import { defineConfig } from 'vite';
 import laravel from 'laravel-vite-plugin';
 import vue from '@vitejs/plugin-vue';
-import svgLoader from 'vite-svg-loader';
 import path from 'path';
 
 const coreJsPath = path.resolve(__dirname, '../packages/mes-core/resources/js');
+const corePath = path.resolve(__dirname, '../packages/mes-core/resources');
 const nodeModulesPath = path.resolve(__dirname, 'node_modules');
 
 export default defineConfig({
@@ -19,6 +19,7 @@ export default defineConfig({
         alias: {
             '@': path.resolve(__dirname, 'resources/js'),
             '@core': coreJsPath,
+            '@core-css': path.resolve(corePath, 'css'),
             'vue': 'vue/dist/vue.esm-bundler.js',
             // packages/ 내부에서 import하는 npm 모듈을 src/node_modules에서 찾도록
             'tui-grid': path.resolve(nodeModulesPath, 'tui-grid'),
@@ -44,7 +45,7 @@ export default defineConfig({
         fs: {
             allow: [
                 path.resolve(__dirname),
-                coreJsPath,
+                corePath,
             ],
         },
     }

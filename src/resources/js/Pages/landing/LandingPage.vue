@@ -141,7 +141,7 @@ const buttonClick2 = async () => {
         buttonsStyling: true
     };
 
-    const result = await showAlert( 'Alert', 'Alert Message', 'info', 'confirm', options );
+    const result = await showAlert( 'Confirm', 'Confirm Message', 'question', 'confirm', options );
 
     console.log( result );
 };

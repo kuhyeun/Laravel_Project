@@ -17,11 +17,10 @@ class MenuFactory extends Factory {
             'parent_menu_code' => null,
             'menu_name' => $this->faker->words(2, true),
             'menu_icon' => null,
-            'menu_level' => 1,
+            'menu_depth' => 1,
             'menu_route_name' => 'route.' . $this->faker->slug(2),
             'is_use' => 'Y',
             'is_display' => 'Y',
-            'is_admin' => 'N',
             'create_account_idx' => 1,
             'remark' => $this->faker->sentence,
         ];
