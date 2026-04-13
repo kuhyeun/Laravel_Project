@@ -30,6 +30,8 @@ export default defineConfig({
             '@heroicons/vue/24/solid': path.resolve(nodeModulesPath, '@heroicons/vue/24/solid'),
             '@heroicons/vue/24/outline': path.resolve(nodeModulesPath, '@heroicons/vue/24/outline'),
             '@inertiajs/vue3': path.resolve(nodeModulesPath, '@inertiajs/vue3'),
+            'vue-chartjs': path.resolve(nodeModulesPath, 'vue-chartjs'),
+            'chart.js': path.resolve(nodeModulesPath, 'chart.js'),
         },
     },
     server: {

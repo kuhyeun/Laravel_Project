@@ -2,8 +2,8 @@
     <div class="flex flex-col h-full">
         <div class="flex w-full h-[35px]">
             <div>
-                <button class="basic-btn left-btn-01 h-full mr-2" type="button" @click="buttonClick">Alert</button>
-                <button class="basic-btn left-btn-01 h-full" type="button" @click="buttonClick2">Confirm</button>
+                <button class="basic-btn h-full mr-2" type="button" @click="buttonClick">Alert</button>
+                <button class="basic-btn h-full" type="button" @click="buttonClick2">Confirm</button>
             </div>
             <div class="flex-1"></div>
             <div class="flex">
@@ -40,7 +40,6 @@ defineOptions({
 });
 
 const modalStore = useModalStore();
-const listLayoutRef = ref( null );
 
 const selectMenuOptions = [
     { label: "통합검색", value: "all" },
@@ -118,7 +117,7 @@ const onGridClick = (ev) => {
     };
 
     const modalOptions = {
-        size: "lg",
+        size: "md",
         closeOnClickOutside: true, // modal 밖 영역 클릭시 닫힘처리 - Default : true
         closeOnEsc: true // Esc키 닫힘처리 - Default : true
     };

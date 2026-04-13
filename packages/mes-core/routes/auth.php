@@ -4,7 +4,6 @@ use Illuminate\Support\Facades\Route;
 use MesCore\Auth\Controllers\UserController;
 use MesCore\Auth\Middleware\GuestAuth;
 use MesCore\Auth\Middleware\UserAuth;
-use MesCore\Auth\Middleware\AdminAuth;
 
 Route::get('/', function () {
     return redirect( '/user' );
@@ -26,10 +25,5 @@ Route::prefix('user')->name('user.')->group(function() {
     Route::middleware([UserAuth::class])->group(function() {
         Route::get('/dashboard', [UserController::class, 'dashboard'])->name('dashboard');
         Route::get('/logout', [UserController::class, 'logout'])->name('logout');
-    });
-
-    // 관리자 권한 이상 접근
-    Route::middleware([AdminAuth::class])->group(function() {
-
     });
 });
