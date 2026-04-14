@@ -30,7 +30,6 @@ import { ref } from 'vue';
 import { useModalStore } from '@core/Stores/modalStore';
 import AppLayout from '@core/Layouts/AppLayout.vue';
 import { showAlert } from '@core/Utils/message.js';
-import { CheckboxRenderer } from '@core/Composables/gridClass';
 import ListLayout from '@core/Components/ListLayout.vue';
 import UserDetail from '@core/Components/modals/UserDetails.vue';
 import BasicSelect from '@core/Components/basic/BasicSelect.vue';
@@ -75,17 +74,10 @@ const gridColumnsData = [{
 }];
 
 const gridOptionsData = {
-    rowHeaders: [{
-        type: "checkbox",
-        header: `<label for="all-checkbox" class="checkbox">
-                    <input type="checkbox" id="all-checkbox" class="hidden-input" name="_checked" />
-                    <span class="custom-input"></span>
-                 </label>`,
-        renderer: {
-            type: CheckboxRenderer
-        }
-    }],
-    scrollY: true
+    rowHeaders: "checkbox",
+    scrollX: true,
+    scrollY: true,
+    oneClickEdit: true
 }
 
 const onGridUpdated = (ev) => {
@@ -93,8 +85,6 @@ const onGridUpdated = (ev) => {
 };
 
 const onGridMounted = (ev) => {
-    // let row_data = listLayoutRef.value?.gridInstance?.getData();
-
     // console.log( row_data );
 };
 

@@ -22,7 +22,14 @@ Route::prefix('chart')->name('chart.')->group(function() {
     Route::middleware([AdminAuth::class])->group(function() {
         Route::get('/bar', [SampleController::class, 'barChart'])->name('bar');
         Route::get('/line', [SampleController::class, 'lineChart'])->name('line');
-        Route::get('/pie', [SampleController::class, 'pieChart'])->name('pie');
-        Route::get('/doughnut', [SampleController::class, 'doughnutChart'])->name('doughnut');
+        Route::get('/circle', [SampleController::class, 'circleChart'])->name('circle');
+        Route::get('/combo', [SampleController::class, 'comboChart'])->name('combo');
     });
+});
+
+Route::prefix('dev')->name('dev.')->group(function() {
+    Route::get( '/api', [SampleController::class, 'api'])->name('api');
+
+    Route::get( '/apiGet', [SampleController::class, 'apiGet'])->name('apiGet');
+    Route::post( '/apiPost', [SampleController::class, 'apiPost'])->name('apiPost');
 });

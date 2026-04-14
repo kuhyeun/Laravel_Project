@@ -25,7 +25,14 @@ class HandleInertiaRequests extends Middleware {
 
         return Cache::remember($user->getMenuCacheKey(), 60, function () use ($user) {
             $userLevel = $user->user_level;
-            $activeModules = array_merge(['Basic'], config('mes.modules', []));
+
+            $defaultModules = ['Basic'];
+
+            if( config( 'app.debug' ) == true ) {
+                $defaultModules[] = 'Debug';
+            }
+
+            $activeModules = array_merge( $defaultModules, config('mes.modules', []) );
 
             $menus = Menu::select('menu_name','menu_code','parent_menu_code','menu_route_name','menu_icon','menu_depth')
                 ->where('is_use', 'Y')

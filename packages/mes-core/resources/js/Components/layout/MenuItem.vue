@@ -9,12 +9,16 @@
             @click="hasChildren ? toggle() : null"
         >
             <component v-if="menuIcon" :is="menuIcon" class="h-5 w-5 mr-2" />
+            
             <span v-if="hasChildren" class="flex-grow flex items-center text-[14px]">
                 {{ menuItem.menu_name }}
             </span>
-            <Link v-else :href="itemHref" class="h-full flex-grow flex items-center text-[14px]">
+            <Link v-else-if="itemHref" :href="itemHref" class="h-full flex-grow flex items-center text-[14px]">
                 {{ menuItem.menu_name }}
             </Link>
+            <span v-else class="flex-grow flex items-center text-[14px] cursor-pointer">
+                {{ menuItem.menu_name }}
+            </span>
 
             <span v-if="hasChildren" class="icon-wrapper">
                 <svg
@@ -136,12 +140,12 @@ watch(currentUrl, () => {
 
 const itemHref = computed(() => {
     if (!props.menuItem.menu_route_name) {
-        return '#';
+        return null;
     }
     try {
         return route(props.menuItem.menu_route_name);
     } catch {
-        return '#';
+        return null;
     }
 });
 

@@ -1,16 +1,21 @@
 <template>
-    <div class="flex flex-row">
-        <div class="flex-1 max-w-[800px] p-4">
-            <BasicChart type="line" :data="chartData" :options="chartOptions" />
+    <div>
+        <div class="flex flex-row">
+            <div class="flex-1 p-4">
+                <BasicChart type="line" :data="chartData" :options="chartOptions" />
+            </div>
+            <div class="flex-1 p-4">
+                <BasicChart type="line" :data="chartData2" :options="chartOptions2" />
+            </div>
         </div>
-    </div>
-    <div class="h-[35px] mt-2 text-left">
-        <button class="basic-btn h-full mr-2" type="button" @click="randomize">Randomize</button>
-        <button class="basic-btn h-full mr-2" type="button" @click="colorRandomize">Color Random</button>
-        <button class="basic-btn h-full mr-2" type="button" @click="addDataset">Add Dataset</button>
-        <button class="basic-btn h-full mr-2" type="button" @click="addData">Add Data</button>
-        <button class="basic-btn h-full mr-2" type="button" @click="removeDataset">Remove Dataset</button>
-        <button class="basic-btn h-full" type="button" @click="removeData">Remove Data</button>
+        <div class="h-[35px] mt-2 text-center">
+            <button class="basic-btn h-full mr-2" type="button" @click="onClickRandomize">Randomize</button>
+            <button class="basic-btn h-full mr-2" type="button" @click="onClickColorRandomize">Color Random</button>
+            <button class="basic-btn h-full mr-2" type="button" @click="onClickAddDataset">Add Dataset</button>
+            <button class="basic-btn h-full mr-2" type="button" @click="onClickAddData">Add Data</button>
+            <button class="basic-btn h-full mr-2" type="button" @click="onClickRemoveDataset">Remove Dataset</button>
+            <button class="basic-btn h-full" type="button" @click="onClickRemoveData">Remove Data</button>
+        </div>
     </div>
 </template>
 
@@ -70,7 +75,7 @@ const chartOptions = ref({
     plugins: {
         title: {
             display: true,
-            text: 'Bar Vertical Chart',
+            text: 'Line Chart',
         },
         legend: {
             position: 'top',
@@ -87,7 +92,7 @@ const chartOptions2 = ref({
     plugins: {
         title: {
             display: true,
-            text: 'Bar Horizontal Chart',
+            text: 'Stepped Line Chart',
         },
         legend: {
             position: 'top',
@@ -96,9 +101,40 @@ const chartOptions2 = ref({
 })
 
 const { randomize, colorRandomize, addDataset, addData, removeDataset, removeData } = useChartDebug( chartData );
+const { randomize: randomize2, colorRandomize: colorRandomize2, addDataset: addDataset2, addData: addData2, removeDataset: removeDataset2, removeData: removeData2 } = useChartDebug( chartData2 );
+
+const onClickRandomize = () => {
+    randomize();
+    randomize2();
+};
+
+const onClickColorRandomize = () => {
+    colorRandomize();
+    colorRandomize2();
+};
+
+const onClickAddDataset = () => {
+    addDataset();
+    addDataset2({fill: false, stepped: true});
+};
+
+const onClickAddData = () => {
+    addData(); 
+    addData2();
+};
+
+const onClickRemoveDataset = () => {
+    removeDataset();
+    removeDataset2();
+};
+
+const onClickRemoveData = () => {
+    removeData();
+    removeData2();
+};
 
 onMounted(() => {
-    randomize();
+    onClickRandomize();
 });
 
 </script>

@@ -7,25 +7,38 @@
             <h1 class="top-frame-title">{{ title }}</h1>
         </div>
         <div class="flex-1"></div>
-        <div class="flex items-center space-x-4">
-            <button id="user-info mr-2">
-                <InformationCircleIcon class="h-5 w-5 fill-gray-700"/>
+        <div class="flex items-center">
+            <button id="user-info" class="mr-3">
+                <InformationCircleIcon class="h-6 w-6 fill-gray-700"/>
             </button>
-            <Link :href="route('user.dashboard')" class="text-gray-700 hover:text-blue-500">DashBoard</Link>
+            <button id="alarm" class="relative mr-3" @click="openGridModal">
+                <BellIcon class="h-6 w-6" />
+                <span v-if="alarmCount > 0"
+                    class="absolute -top-1 -right-[5px] bg-red-500 text-white text-[10px] font-bold rounded-full min-w-[16px] h-4 flex items-start justify-center px-0.5">
+                    {{ alarmCount > 99 ? '99+' : alarmCount }}
+                </span>
+            </button>
+            <Link :href="route('user.dashboard')" class="mr-3 text-gray-700  hover:text-blue-500">DashBoard</Link>
             <a :href="route('user.logout')" class="text-gray-700 hover:text-blue-500">Logout</a>
         </div>
     </div>
 </template>
 
 <script setup>
+import { ref } from 'vue';
 import { route } from 'ziggy-js';
 import { storeToRefs } from 'pinia';
-import { useUiStore } from '../../Stores/uiStore';
+import { useUiStore } from '@core/Stores/uiStore';
+import { useModalStore } from '@core/Stores/modalStore';
 import { Link } from '@inertiajs/vue3';
+import { BellIcon } from '@heroicons/vue/24/outline';
 import { Bars3BottomLeftIcon, InformationCircleIcon } from '@heroicons/vue/24/solid';
+import GridModal from '@core/Components/modals/ModalGridList.vue';
 
 const uiStore = useUiStore();
 const { title } = storeToRefs(uiStore);
+const modalStore = useModalStore();
+const alarmCount = ref(15); // 뱃지 카운트 예시
 
 const toggleSidebar = () => {
     const sidebarStateKey = 'sidebar-collapsed';
@@ -33,4 +46,14 @@ const toggleSidebar = () => {
 
     localStorage.setItem( sidebarStateKey, isCollapsed );
 };
+
+const openGridModal = () => {
+    const modalOptions = {
+        size: "lg",
+        closeOnClickOutside: true,
+        closeOnEsc: true
+    };
+
+    modalStore.open( GridModal, { modalTitle: "알림 리스트" }, modalOptions );
+}
 </script>

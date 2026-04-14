@@ -2,6 +2,66 @@
 
 return [
             [
+                'menu_code' => '90000',
+                'menu_name' => '개발 메뉴',
+                'menu_icon' => 'WrenchScrewdriverIcon',
+                'module_code' => 'Debug',
+                'menu_route_name' => '',
+                'menu_level' => 0,
+                'children' => [
+                    [
+                        'menu_code' => '90001',
+                        'menu_name' => '차트',
+                        'menu_icon' => 'ChartBarIcon',
+                        'module_code' => 'Debug',
+                        'menu_route_name' => '',
+                        'menu_level' => 0,
+                        'children' => [
+                            [
+                                'menu_code' => '91001',
+                                'menu_name' => 'Bar Chart',
+                                'menu_icon' => null,
+                                'module_code' => 'Debug',
+                                'menu_route_name' => 'chart.bar',
+                                'menu_level' => 0
+                            ],
+                            [
+                                'menu_code' => '91002',
+                                'menu_name' => 'Line Chart',
+                                'menu_icon' => null,
+                                'module_code' => 'Debug',
+                                'menu_route_name' => 'chart.line',
+                                'menu_level' => 0
+                            ],
+                            [
+                                'menu_code' => '91003',
+                                'menu_name' => 'Circle Chart',
+                                'menu_icon' => null,
+                                'module_code' => 'Debug',
+                                'menu_route_name' => 'chart.circle',
+                                'menu_level' => 0
+                            ],
+                            [
+                                'menu_code' => '91004',
+                                'menu_name' => 'Combo Chart',
+                                'menu_icon' => null,
+                                'module_code' => 'Debug',
+                                'menu_route_name' => 'chart.combo',
+                                'menu_level' => 0
+                            ],
+                        ]
+                    ],
+                    [
+                        'menu_code' => '90002',
+                        'menu_name' => 'API 테스트',
+                        'menu_icon' => 'CodeBracketIcon',
+                        'module_code' => 'Debug',
+                        'menu_route_name' => 'dev.api',
+                        'menu_level' => 0
+                    ]
+                ]
+            ],
+            [
                 'menu_code' => '1000',
                 'menu_name' => '기준정보관리',
                 'menu_icon' => 'Cog6ToothIcon',

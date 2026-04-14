@@ -35,12 +35,17 @@ export const useModalStore = defineStore('modal', {
      * @param {Number} id - 닫을 모달의 고유 ID. 없으면 최상단 모달을 닫습니다.
      */
     close(id) {
-      if (id) {
-        this.modals = this.modals.filter(m => m.id !== id);
-      } else {
-        // ID가 제공되지 않으면 스택의 맨 위에서 하나를 제거합니다.
-        this.modals.pop();
-      }
+      const targetId = id || this.modals[this.modals.length - 1]?.id;
+      if (!targetId) return;
+
+      // closing 상태로 변경 (트랜지션 트리거)
+      const modal = this.modals.find(m => m.id === targetId);
+      if (modal) modal.closing = true;
+
+      // 트랜지션 완료 후 실제 제거
+      setTimeout(() => {
+        this.modals = this.modals.filter(m => m.id !== targetId);
+      }, 250);
     },
   },
 });

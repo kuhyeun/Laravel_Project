@@ -1,87 +1,87 @@
 <template>
-  <teleport to="body">
-    <div v-for="(modal, index) in modalStore.modals" :key="modal.id">
-      <div class="modal-overlay" :style="{ zIndex: 1000 + index }"  @click.self="handleOverlayClick(modal)">
-        <div class="modal-content" :class="`size-${modal.size}`">
-          <button class="modal-close-btn" @click="modalStore.close(modal.id)">&times;</button>
-          
-          <component
-            :is="modal.component"
-            v-bind="modal.props"
-            @close="modalStore.close(modal.id)"
-          />
+    <teleport to="body">
+        <div v-for="(modal, index) in modalStore.modals" :key="modal.id">
+            <div
+                class="modal-overlay fixed inset-0 w-full h-full bg-white/30 backdrop-blur-[1px] flex justify-center items-center"
+                :class="{ 'modal-closing': modal.closing }"
+                :style="{ zIndex: 1000 + index }"
+                @click.self="handleOverlayClick(modal)"
+            >
+                <div class="modal-inner w-full flex flex-col bg-white p-6 rounded-[8px] shadow-[0_5px_15px_rgba(0,0,0,0.5)] overflow-y-auto" :class="`size-${modal.size}`">
+                    <div class="flex">
+                        <div class="flex-1 font-bold text-[19px]">{{ modal.props?.modalTitle }}</div>
+                        <button @click="modalStore.close(modal.id)">
+                            <XMarkIcon class="w-[24px] h-[24px]" />
+                        </button>
+                    </div>
+
+                    <component
+                        class="flex-1"
+                        :is="modal.component"
+                        v-bind="modal.props"
+                        @close="modalStore.close(modal.id)"
+                    />
+                </div>
+            </div>
         </div>
-      </div>
-    </div>
-  </teleport>
+    </teleport>
 </template>
 
 <script setup>
-  import { onMounted, onUnmounted } from 'vue';
-  import { useModalStore } from '../Stores/modalStore';
+import { onMounted, onUnmounted } from 'vue';
+import { useModalStore } from '@core/Stores/modalStore';
+import { XMarkIcon } from '@heroicons/vue/24/outline';
 
-  const modalStore = useModalStore();
+const modalStore = useModalStore();
 
-  const handleOverlayClick = (modal) => {
-    if (modal.closeOnClickOutside) {
-      modalStore.close(modal.id);
+const handleOverlayClick = (modal) => {
+    if( modal.closeOnClickOutside ) {
+        modalStore.close( modal.id );
     }
-  };
+};
 
-  const handleKeydown = (e) => {
-    if (e.key === 'Escape' && modalStore.modals.length > 0) {
-      const topModal = modalStore.modals[modalStore.modals.length - 1];
-      if (topModal.closeOnEsc) {
-        modalStore.close(); // 최상단 모달을 닫습니다.
-      }
+const handleKeydown = (e) => {
+    if( e.key === 'Escape' && modalStore.modals.length > 0 ) {
+        const topModal = modalStore.modals[modalStore.modals.length - 1];
+        
+        if( topModal.closeOnEsc ) {
+            modalStore.close(); // 최상단 모달을 닫습니다.
+        }
     }
-  };
+};
 
-  onMounted(() => {
+onMounted(() => {
     window.addEventListener('keydown', handleKeydown);
-  });
+});
 
-  onUnmounted(() => {
+onUnmounted(() => {
     window.removeEventListener('keydown', handleKeydown);
-  });
+});
 </script>
 
 <style scoped>
-  .modal-overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(252, 252, 252, 0.3);
-    backdrop-filter: blur(1px);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
-  .modal-content {
-    background-color: white;
-    padding: 2rem;
-    border-radius: 8px;
-    box-shadow: 0 5px 15px rgba(0,0,0,.5);
-    position: relative;
-    width: 90%;
-    max-height: 90vh;
-    overflow-y: auto;
-  }
-  .modal-close-btn {
-    position: absolute;
-    top: 10px;
-    right: 15px;
-    border: none;
-    background: none;
-    font-size: 1.8rem;
-    cursor: pointer;
-    color: #666;
-  }
-  
-  .size-sm { max-width: 400px; }
-  .size-md { max-width: 600px; }
-  .size-lg { max-width: 800px; }
-  .size-xl { max-width: 1140px; }
+    .size-sm { max-width: 400px; }
+    .size-md { max-width: 600px; }
+    .size-lg { max-width: 800px; }
+    .size-xl { max-width: 1140px; }
+
+    .modal-overlay {
+        animation: fadeIn 0.25s ease;
+    }
+    .modal-overlay .modal-inner {
+        animation: slideUp 0.25s ease;
+    }
+    .modal-closing {
+        opacity: 0;
+        transition: opacity 0.25s ease;
+    }
+
+    @keyframes fadeIn {
+        from { opacity: 0; }
+        to { opacity: 1; }
+    }
+    @keyframes slideUp {
+        from { opacity: 0; transform: translateY(15px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
 </style>
