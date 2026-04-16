@@ -15,7 +15,7 @@ class UserController extends Controller {
 
     // 로그인 성공 후 LANDING
     public function dashboard() {
-        return Inertia::render( 'landing/LandingPage' );
+        return Inertia::render( 'Dashboard' );
     }
 
     // 로그인

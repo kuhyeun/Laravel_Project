@@ -8,7 +8,7 @@
         </div>
         <div class="flex-1"></div>
         <div class="flex items-center">
-            <button id="user-info" class="mr-3">
+            <button id="user-info" class="mr-3" @click="openUserInfo">
                 <InformationCircleIcon class="h-6 w-6 fill-gray-700"/>
             </button>
             <button id="alarm" class="relative mr-3" @click="openGridModal">
@@ -34,6 +34,7 @@ import { Link } from '@inertiajs/vue3';
 import { BellIcon } from '@heroicons/vue/24/outline';
 import { Bars3BottomLeftIcon, InformationCircleIcon } from '@heroicons/vue/24/solid';
 import GridModal from '@core/Components/modals/ModalGridList.vue';
+import UserDetail from '@core/Components/modals/UserDetails.vue';
 
 const uiStore = useUiStore();
 const { title } = storeToRefs(uiStore);
@@ -47,6 +48,23 @@ const toggleSidebar = () => {
     localStorage.setItem( sidebarStateKey, isCollapsed );
 };
 
+const openUserInfo = () => {
+    const dummyUser = {
+        name: '홍길동',
+        email: 'test@example.com',
+        joined: '2026-04-01',
+        id: 'temp_id'
+    };
+
+    const modalOptions = {
+        size: "md",
+        closeOnClickOutside: true,
+        closeOnEsc: true
+    };
+
+    modalStore.open( UserDetail, { modalTitle: "사용자 정보", user: dummyUser }, modalOptions );
+};
+
 const openGridModal = () => {
     const modalOptions = {
         size: "lg",
@@ -55,5 +73,5 @@ const openGridModal = () => {
     };
 
     modalStore.open( GridModal, { modalTitle: "알림 리스트" }, modalOptions );
-}
+};
 </script>

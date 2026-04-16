@@ -171,8 +171,8 @@ export function useGrid() {
                 const {height} = v.contentRect;
 
                 if( grid != null && height > 0 ) {
-                grid.setHeight( height - ( marginTop + marginBottom ) );
-                grid.refreshLayout();
+                    grid.setHeight( height - ( marginTop + marginBottom ) );
+                    grid.refreshLayout();
                 };
             }
         });
