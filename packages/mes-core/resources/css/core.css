@@ -43,3 +43,12 @@ html.sidebar-collapsed #app-sidebar {
       font-family: 'Inter,sans-serif';
     }
 }
+
+/* SweetAlert2 Styles */
+.swal2-container .swal2-toast * {
+  cursor: pointer;
+}
+
+.swal2-container .swal2-toast:hover {
+  background-color: #F7F7F7;
+}

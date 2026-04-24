@@ -62,7 +62,15 @@ export function showAlert(title = '', text = '', icon = 'info', type = 'alert', 
             toast: true,
             position: 'top-end',
             showConfirmButton: false,
-            timer: 3000,
+            timer: 30000,
+            timerProgressBar: true,
+            didOpen: (toast) => {
+                toast.addEventListener( "click", function(ev){
+                    Swal.close();
+                });
+
+                toast.style.cursor = 'pointer';
+            }
         });
     } else {
         Object.assign(settings, {

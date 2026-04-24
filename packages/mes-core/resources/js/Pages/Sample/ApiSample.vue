@@ -59,14 +59,10 @@ const removeField = (index) => {
 
 // GET 요청 예시
 const fetchData = async () => {
-    console.log( getLink.value );
-
     try {
         errorResult.value = null;
 
-        const { data } = await axios.get( getLink.value, {
-            params: { key: "value" }
-        });
+        const { data } = await axios.get( getLink.value );
 
         getData.value = data;
     } catch (e) {
@@ -84,9 +80,6 @@ const submitData = async () => {
                 payload[field.key] = field.value;
             }
         });
-
-        // const response = await axios.post( postLink.value, payload );
-        // postResult.value = response.data;
 
         const { data } = await axios.post( postLink.value, payload );
 

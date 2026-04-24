@@ -2,8 +2,9 @@
     <div class="flex flex-col h-full">
         <div class="flex w-full h-[35px]">
             <div>
-                <button class="basic-btn h-full mr-2" type="button" @click="buttonClick">Alert</button>
-                <button class="basic-btn h-full" type="button" @click="buttonClick2">Confirm</button>
+                <button class="basic-btn alert-btn h-full mr-2" type="button" @click="buttonClick">Alert</button>
+                <button class="basic-btn confirm-btn h-full mr-2" type="button" @click="buttonClick2">Confirm</button>
+                <button class="basic-btn toast-btn h-full" type="button" @click="buttonClick3">Toast</button>
             </div>
             <div class="flex-1"></div>
             <div class="flex">
@@ -102,9 +103,7 @@ const handleSearch = async () => {
 };
 
 const buttonClick = async () => {
-    const result = await showAlert( 'Alert', 'Alert Message', 'info', 'alert' );
-
-    // console.log( result );
+    await showAlert( 'Alert', 'Alert Message', 'info', 'alert' );
 };
 
 const buttonClick2 = async () => {
@@ -115,6 +114,10 @@ const buttonClick2 = async () => {
     const result = await showAlert( 'Confirm', 'Confirm Message', 'question', 'confirm', options );
 
     // console.log( result );
+};
+
+const buttonClick3 = async () => {
+    await showAlert( '', 'Toast Message', 'warning', 'toast' );
 };
 
 </script>

@@ -7,7 +7,7 @@
         </select>
         <ChevronDownIcon class="w-4 h-4 absolute right-2 top-1/2 -translate-y-1/2 pointer-events-none text-gray-500" />
     </div>
-    <input class="w-[200px] h-full border rounded px-2 mr-1 text-[14px] focus:border-blue-400" type="text" name="searchValue" placeholder="검색어" @keyup.enter="searchSubmit" />
+    <input class="w-[200px] h-full border rounded px-2 mr-1 text-[14px] focus:border-blue-400" type="text" name="searchValue" placeholder="/ 를 눌러 검색하세요" @keyup.enter="searchSubmit" />
     <button class="basic-btn searchBtn h-full" type="button" name="searchBtn" @click="searchSubmit">검색</button>
 </template>
 
@@ -27,4 +27,17 @@ const emit = defineEmits( ["searchClick"] );
 const searchSubmit = (ev) => {
     emit( "searchClick", ev );
 };
+
+document.addEventListener( "keyup", function(ev){
+    const input = document.querySelector( "input[name=searchValue]" );
+
+    // Slash
+    if( ev.key == '/' ) {
+        console.log( "A" );
+        ev.preventDefault();
+        input.focus();
+    };
+});
+
+
 </script>

@@ -10,7 +10,10 @@
                 <div class="modal-inner w-full flex flex-col bg-white p-6 rounded-[8px] shadow-[0_5px_15px_rgba(0,0,0,0.5)] overflow-y-auto" :class="`size-${modal.size}`">
                     <div class="flex">
                         <div class="flex-1 font-bold text-[19px]">{{ modal.props?.modalTitle }}</div>
-                        <button @click="modalStore.close(modal.id)">
+                        <button class="list_config mr-1">
+                            <Cog6ToothIcon class="w-[24px] h-[24px]" />
+                        </button>
+                        <button class="close_btn" @click="modalStore.close(modal.id)">
                             <XMarkIcon class="w-[24px] h-[24px]" />
                         </button>
                     </div>
@@ -30,7 +33,7 @@
 <script setup>
 import { onMounted, onUnmounted } from 'vue';
 import { useModalStore } from '@core/Stores/modalStore';
-import { XMarkIcon } from '@heroicons/vue/24/outline';
+import { XMarkIcon, Cog6ToothIcon } from '@heroicons/vue/24/outline';
 
 const modalStore = useModalStore();
 
