@@ -23,28 +23,28 @@
 import { ref, onMounted } from 'vue';
 import { getRandomColor } from '@core/Utils/common';
 import { useChartDebug } from '@core/Composables/useChartDebug';
-import BasicChart from '@core/Components/basic/BasicChart.vue';
+import BasicChart from '@core/Components/Basic/BasicChart.vue';
 import AppLayout from '@core/Layouts/AppLayout.vue';
 
 defineOptions({
     layout: AppLayout
 });
 
+const makeDataset = (label) => {
+    const color = getRandomColor();
+    return {
+        label,
+        borderColor: color,
+        backgroundColor: color,
+        data: [ 0, 0, 0, 0, 0, 0 ]
+    };
+};
+
 const chartData = ref({
     labels: ['L1', 'L2', 'L3', 'L4', 'L5', 'L6'],
     datasets: [
-        {
-            label: 'D1',
-            borderColor: getRandomColor(),
-            backgroundColor: getRandomColor(),
-            data: [ 0, 0, 0, 0, 0, 0 ]
-        },
-        {
-            label: 'D2',
-            borderColor: getRandomColor(),
-            backgroundColor: getRandomColor(),
-            data: [ 0, 0, 0, 0, 0, 0 ]
-        },
+        makeDataset( 'D1' ),
+        makeDataset( 'D2' )
     ],
 });
 
@@ -52,18 +52,12 @@ const chartData2 = ref({
     labels: ['L1', 'L2', 'L3', 'L4', 'L5', 'L6'],
     datasets: [
         {
-            label: 'D1',
-            borderColor: getRandomColor(),
-            backgroundColor: getRandomColor(),
-            data: [ 0, 0, 0, 0, 0, 0 ],
+            ...makeDataset( 'D1' ),
             fill: false,
             stepped: true
         },
         {
-            label: 'D2',
-            borderColor: getRandomColor(),
-            backgroundColor: getRandomColor(),
-            data: [ 0, 0, 0, 0, 0, 0 ],
+            ...makeDataset( 'D2' ),
             fill: false,
             stepped: true
         },

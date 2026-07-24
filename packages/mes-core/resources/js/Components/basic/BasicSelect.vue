@@ -7,12 +7,12 @@
         </select>
         <ChevronDownIcon class="w-4 h-4 absolute right-2 top-1/2 -translate-y-1/2 pointer-events-none text-gray-500" />
     </div>
-    <input class="w-[200px] h-full border rounded px-2 mr-1 text-[14px] focus:border-blue-400" type="text" name="searchValue" placeholder="/ 를 눌러 검색하세요" @keyup.enter="searchSubmit" />
+    <input ref="searchInput" class="w-[200px] h-full border rounded px-2 mr-1 text-[14px] focus:border-blue-400" type="text" name="searchValue" placeholder="/ 를 눌러 검색하세요" @keyup.enter="searchSubmit" />
     <button class="basic-btn searchBtn h-full" type="button" name="searchBtn" @click="searchSubmit">검색</button>
 </template>
 
 <script setup>
-import { ref } from 'vue';
+import { ref, onMounted, onUnmounted } from 'vue';
 import { ChevronDownIcon } from '@heroicons/vue/24/solid';
 
 const props = defineProps({
@@ -24,20 +24,24 @@ const selectedValue = ref(defaultOption ? defaultOption.value : props.selectMenu
 
 const emit = defineEmits( ["searchClick"] );
 
+const searchInput = ref( null );
+
 const searchSubmit = (ev) => {
     emit( "searchClick", ev );
 };
 
-document.addEventListener( "keyup", function(ev){
-    const input = document.querySelector( "input[name=searchValue]" );
-
-    // Slash
-    if( ev.key == '/' ) {
-        console.log( "A" );
+const handleKeyup = (ev) => {
+    if( ev.key === "/" ) {
         ev.preventDefault();
-        input.focus();
+        searchInput.value?.focus();
     };
+};
+
+onMounted(() => {
+    document.addEventListener( "keyup", handleKeyup );
 });
 
-
+onUnmounted(() => {
+    document.removeEventListener( "keyup", handleKeyup );
+});
 </script>

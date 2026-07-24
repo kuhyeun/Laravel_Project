@@ -1,17 +1,18 @@
 <template>
     <div>
         <div class="flex flex-row justify-center">
-            <div class="flex-1 p-4 max-w-[700px]">
+            <div class="flex-1 p-4 max-w-[550px]">
                 <BasicChart type="pie" :data="chartData" :options="chartOptions" />
             </div>
 
-            <div class="flex-1 p-4 max-w-[700px]">
+            <div class="flex-1 p-4 max-w-[550px]">
                 <BasicChart type="doughnut" :data="chartData" :options="chartOptions2" />
             </div>
 
         </div>
         <div class="h-[35px] mt-4 text-center">
             <button class="basic-btn h-full mr-2" type="button" @click="randomize">Randomize</button>
+            <button class="basic-btn h-full mr-2" type="button" @click="colorRandomize">Color Random</button>
             <button class="basic-btn h-full mr-2" type="button" @click="addDataset">Add Dataset</button>
             <button class="basic-btn h-full mr-2" type="button" @click="addData">Add Data</button>
             <button class="basic-btn h-full mr-2" type="button" @click="removeDataset">Remove Dataset</button>
@@ -24,7 +25,7 @@
 import { ref, onMounted } from 'vue';
 import { getRandomColor } from '@core/Utils/common';
 import { useCircleChartDebug } from '@core/Composables/useChartDebug';
-import BasicChart from '@core/Components/basic/BasicChart.vue';
+import BasicChart from '@core/Components/Basic/BasicChart.vue';
 import AppLayout from '@core/Layouts/AppLayout.vue';
 
 defineOptions({
@@ -75,7 +76,7 @@ const chartOptions2 = ref({
     },
 })
 
-const { randomize, addDataset, addData, removeDataset, removeData } = useCircleChartDebug( chartData );
+const { randomize, colorRandomize, addDataset, addData, removeDataset, removeData } = useCircleChartDebug( chartData );
 
 onMounted(() => {
     randomize();

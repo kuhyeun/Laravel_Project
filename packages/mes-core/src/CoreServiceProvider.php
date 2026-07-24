@@ -7,8 +7,10 @@ use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Gate;
 use MesCore\Auth\Models\User;
 use MesCore\Auth\Observers\UserObserver;
+use MesCore\Menu\Services\MenuPermissionService;
 
 class CoreServiceProvider extends ServiceProvider {
 
@@ -33,6 +35,9 @@ class CoreServiceProvider extends ServiceProvider {
         // Observer 등록
         User::observe(UserObserver::class);
 
+        // 메뉴 권한 Gate 등록
+        $this->registerMenuGates();
+
         // 세션 데이터 공유
         View::composer('*', function ($view) {
             if( Auth::check() ) {
@@ -46,6 +51,22 @@ class CoreServiceProvider extends ServiceProvider {
 
                 $view->with('mSession', $sessionData);
             }
+        });
+    }
+
+    protected function registerMenuGates(): void {
+        $service = $this->app->make(MenuPermissionService::class);
+
+        Gate::define('menu.read', function (User $user, string $menuCode) use ($service) {
+            return $service->can($user, $menuCode, 'can_read');
+        });
+
+        Gate::define('menu.write', function (User $user, string $menuCode) use ($service) {
+            return $service->can($user, $menuCode, 'can_write');
+        });
+
+        Gate::define('menu.delete', function (User $user, string $menuCode) use ($service) {
+            return $service->can($user, $menuCode, 'can_delete');
         });
     }
 

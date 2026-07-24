@@ -18,30 +18,36 @@
 
 /* Sidebar Animation Styles */
 html.sidebar-collapsed #app-sidebar {
-    width: 0;
-    padding-left: 0;
-    padding-right: 0;
-    overflow: hidden;
+  width: 0;
+  padding-left: 0;
+  padding-right: 0;
+  overflow: hidden;
+}
+
+:focus-visible {
+  outline: 2px solid #C5C5C5;
+  outline-offset: 1px;
+  border-radius: 4px;
 }
 
 /* Core Base Styles */
 @layer components {
-    html, body {
-        height: 100%;
-        margin: 0;
-    }
+  html, body {
+    height: 100%;
+    margin: 0;
+  }
 
-    input:focus, select:focus {
-      outline: none;
-    }
+  input:focus, select:focus {
+    outline: none;
+  }
 
-    .basic-btn {
-      @apply text-[14px] font-bold px-4 rounded border transition-colors duration-300 hover:bg-gray-300;
-    }
+  .basic-btn {
+    @apply text-[14px] font-bold px-4 rounded border transition-colors duration-300 hover:bg-gray-300;
+  }
 
-    .font-inter {
-      font-family: 'Inter,sans-serif';
-    }
+  .font-inter {
+    font-family: 'Inter,sans-serif';
+  }
 }
 
 /* SweetAlert2 Styles */

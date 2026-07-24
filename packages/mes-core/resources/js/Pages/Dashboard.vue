@@ -14,15 +14,14 @@
                 </basic-select>
             </div>
         </div>
-        <list-layout
-            ref="listLayoutRef"
+        <grid-sample
             :dataSource="gridDataSource"
             :gridColumns="gridColumnsData"
             :gridOptions="gridOptionsData"
             @grid-updated="onGridUpdated"
             @grid-mounted="onGridMounted"
             @grid-click="onGridClick">
-        </list-layout>
+        </grid-sample>
     </div>
 </template>
 
@@ -30,8 +29,8 @@
 import { ref } from 'vue';
 import AppLayout from '@core/Layouts/AppLayout.vue';
 import { showAlert } from '@core/Utils/message.js';
-import ListLayout from '@core/Components/ListLayout.vue';
-import BasicSelect from '@core/Components/basic/BasicSelect.vue';
+import GridSample from '@core/Components/Common/GridSample.vue';
+import BasicSelect from '@core/Components/Basic/BasicSelect.vue';
 
 defineOptions({
     layout: AppLayout

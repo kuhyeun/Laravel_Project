@@ -25,10 +25,10 @@
 <script setup>
 import { usePage } from '@inertiajs/vue3';
 import { computed } from 'vue';
-import TopFrame from '../Components/layout/TopFrame.vue';
-import LeftMenu from '../Components/layout/LeftMenu.vue';
-import BottomFrame from '../Components/layout/BottomFrame.vue';
-import BaseModal from '../Components/BaseModal.vue';
+import TopFrame from '../Components/Layout/TopFrame.vue';
+import LeftMenu from '../Components/Layout/LeftMenu.vue';
+import BottomFrame from '../Components/Layout/BottomFrame.vue';
+import BaseModal from '../Components/Modals/BaseModal.vue';
 
 const page = usePage();
 const menuItems = computed(() => page.props.userMenu ?? []);

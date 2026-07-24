@@ -33,8 +33,8 @@ import { useModalStore } from '@core/Stores/modalStore';
 import { Link } from '@inertiajs/vue3';
 import { BellIcon } from '@heroicons/vue/24/outline';
 import { Bars3BottomLeftIcon, InformationCircleIcon } from '@heroicons/vue/24/solid';
-import GridModal from '@core/Components/modals/ModalGridList.vue';
-import UserDetail from '@core/Components/modals/UserDetails.vue';
+import GridModal from '@core/Components/Modals/ModalGridList.vue';
+import UserDetail from '@core/Components/Modals/UserDetails.vue';
 
 const uiStore = useUiStore();
 const { title } = storeToRefs(uiStore);

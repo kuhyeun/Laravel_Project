@@ -25,7 +25,7 @@
 import { ref, onMounted } from 'vue';
 import { getRandomColor } from '@core/Utils/common';
 import { useChartDebug } from '@core/Composables/useChartDebug';
-import BasicChart from '@core/Components/basic/BasicChart.vue';
+import BasicChart from '@core/Components/Basic/BasicChart.vue';
 import AppLayout from '@core/Layouts/AppLayout.vue';
 
 defineOptions({

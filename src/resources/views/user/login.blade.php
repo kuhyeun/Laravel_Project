@@ -55,7 +55,7 @@
         </div>
     </form>
 
-    <div class="link">
+    <div class="link" style="display: none;">
         <a href="{{ route('user.register') }}">아직 회원이 아니신가요? 회원가입</a>
     </div>
 </body>

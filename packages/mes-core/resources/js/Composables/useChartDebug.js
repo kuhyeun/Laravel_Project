@@ -101,6 +101,19 @@ export function useCircleChartDebug(chartData) {
         };
     };
 
+    const colorRandomize = () => {
+        const colorCount = chartData.value.labels.length;
+        const colors = Array.from({ length: colorCount }, () => getRandomColor());
+
+        chartData.value = {
+            ...chartData.value,
+            datasets: chartData.value.datasets.map(dataset => ({
+                ...dataset,
+                backgroundColor: [...colors],
+            })),
+        };
+    };
+
     const addData = () => {
         const color = getRandomColor();
 
@@ -149,5 +162,5 @@ export function useCircleChartDebug(chartData) {
         };
     };
 
-    return { randomize, addDataset, addData, removeDataset, removeData };
+    return { randomize, colorRandomize, addDataset, addData, removeDataset, removeData };
 }
