@@ -33,6 +33,6 @@ How to Install Distribution Project
       
       docker-compose exec php npm install
 
-6.  로컬 개발환경을 위해 vendor/node_modules 폴더 로컬로 복사 및 생성:
+6.  로컬 개발환경을 위해 vendor, node_modules 폴더 로컬로 복사 및 생성:
     *   docker cp php:/var/www/html/vendor ./src/vendor
     *   npm install
