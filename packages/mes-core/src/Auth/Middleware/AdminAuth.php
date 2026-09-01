@@ -18,9 +18,9 @@ class AdminAuth {
             return redirect()->route('user.login');
         }
 
-        // 권한 부족 → 403
+        // 권한 부족 → 403 ( abort 로 던져 Inertia 에러 페이지가 렌더되도록 )
         if( $request->session()->get('user_level') > 1 ) {
-            return response( 'Permission Denied.', 403 );
+            abort( 403, 'Permission Denied.' );
         }
 
         return $next($request);

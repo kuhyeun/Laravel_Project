@@ -28,6 +28,9 @@ class Menu extends Model {
         'menu_depth',
         'module_code',
         'menu_route_name',
+        'url_path',
+        'page_component',
+        'menu_icon',
         'is_use',
         'is_display',
         'is_admin',
@@ -43,14 +46,28 @@ class Menu extends Model {
     const CREATED_AT = 'create_datetime';
     const UPDATED_AT = 'update_datetime';
 
-    public static function validateMenuData(): array {
+    public static function validateMenuData(?int $ignoreId = null): array {
+        // 수정 시에는 자기 자신을 unique 검사에서 제외
+        $codeUnique = 'unique:system_menu,menu_code';
+        $pathUnique = 'unique:system_menu,url_path';
+        if ($ignoreId !== null) {
+            $codeUnique .= ',' . $ignoreId . ',menu_idx';
+            $pathUnique .= ',' . $ignoreId . ',menu_idx';
+        }
+
         return [
-            'menu_code'        => 'required|string|max:30|unique:system_menu,menu_code',
+            'menu_code'        => 'required|string|max:30|' . $codeUnique,
             'top_menu_code'    => 'required|string|max:30',
             'parent_menu_code' => 'nullable|string|max:30|exists:system_menu,menu_code',
             'menu_name'        => 'required|string|max:50',
             'menu_depth'       => 'required|integer|min:1',
+            'module_code'      => 'required|string|max:50',
             'menu_route_name'  => 'nullable|string|max:50',
+            // 접속 경로: '/order/list' 형태 ( 슬래시로 시작, 영숫자/-/_/ 만 )
+            'url_path'         => 'nullable|string|max:150|regex:/^\/[A-Za-z0-9\/_-]*$/|' . $pathUnique,
+            // 렌더할 컴포넌트: 'Modules/Order/Pages/OrderList' 형태 ( 경로 탈출 차단 )
+            'page_component'   => 'nullable|string|max:150|regex:/^[A-Za-z0-9\/_]+$/',
+            'menu_icon'        => 'nullable|string|max:50',
             'is_use'           => 'sometimes|in:Y,N',
             'is_display'       => 'sometimes|in:Y,N',
             'remark'           => 'nullable|string',
@@ -67,10 +84,10 @@ class Menu extends Model {
             ]));
 
             $menu->menuOptions()->createMany([
-                ['menu_level' => 0, 'menu_sort' => 99, 'create_account_idx' => Auth::id()],
-                ['menu_level' => 1, 'menu_sort' => 99, 'create_account_idx' => Auth::id()],
-                ['menu_level' => 10, 'menu_sort' => 99, 'create_account_idx' => Auth::id()],
-                ['menu_level' => 99, 'menu_sort' => 99, 'create_account_idx' => Auth::id()],
+                ['menu_level' => 0,  'menu_sort' => 99, 'can_read' => 'Y', 'can_write' => 'N', 'can_delete' => 'N', 'create_account_idx' => Auth::id()],
+                ['menu_level' => 1,  'menu_sort' => 99, 'can_read' => 'Y', 'can_write' => 'N', 'can_delete' => 'N', 'create_account_idx' => Auth::id()],
+                ['menu_level' => 10, 'menu_sort' => 99, 'can_read' => 'Y', 'can_write' => 'N', 'can_delete' => 'N', 'create_account_idx' => Auth::id()],
+                ['menu_level' => 99, 'menu_sort' => 99, 'can_read' => 'Y', 'can_write' => 'N', 'can_delete' => 'N', 'create_account_idx' => Auth::id()],
             ]);
 
             return $menu;
@@ -87,8 +104,8 @@ class Menu extends Model {
             ]));
 
             $menu->menuOptions()->createMany([
-                ['menu_level' => 0, 'menu_sort' => 99, 'create_account_idx' => Auth::id()],
-                ['menu_level' => 1, 'menu_sort' => 99, 'create_account_idx' => Auth::id()],
+                ['menu_level' => 0, 'menu_sort' => 99, 'can_read' => 'Y', 'can_write' => 'N', 'can_delete' => 'N', 'create_account_idx' => Auth::id()],
+                ['menu_level' => 1, 'menu_sort' => 99, 'can_read' => 'Y', 'can_write' => 'N', 'can_delete' => 'N', 'create_account_idx' => Auth::id()],
             ]);
 
             return $menu;

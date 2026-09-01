@@ -62,15 +62,15 @@ return [
                 ]
             ],
             [
-                'menu_code' => '1000',
-                'menu_name' => '기준정보관리',
+                'menu_code' => '0000',
+                'menu_name' => '설정',
                 'menu_icon' => 'Cog6ToothIcon',
                 'module_code' => 'Basic',
                 'menu_route_name' => '',
-                'menu_level' => 99,
+                'menu_level' => 1,
                 'children' => [
                     [
-                        'menu_code' => '1001',
+                        'menu_code' => '0001',
                         'menu_name' => '시스템 설정',
                         'menu_icon' => null,
                         'module_code' => 'Basic',
@@ -78,7 +78,7 @@ return [
                         'menu_level' => 0
                     ],
                     [
-                        'menu_code' => '1002',
+                        'menu_code' => '0002',
                         'menu_name' => '메뉴관리',
                         'menu_icon' => null,
                         'module_code' => 'Basic',
@@ -86,31 +86,31 @@ return [
                         'menu_level' => 0
                     ],
                     [
-                        'menu_code' => '1003',
+                        'menu_code' => '0003',
                         'menu_name' => '환경설정',
                         'menu_icon' => null,
                         'module_code' => 'Basic',
                         'menu_route_name' => 'basic.pref',
-                        'menu_level' => 10,
+                        'menu_level' => 1,
                     ],
                     [
-                        'menu_code' => '1004',
+                        'menu_code' => '0004',
                         'menu_name' => '사용자관리',
                         'menu_icon' => null,
                         'module_code' => 'Basic',
                         'menu_route_name' => 'basic.mem',
-                        'menu_level' => 10
+                        'menu_level' => 1
                     ],
                     [
-                        'menu_code' => '1005',
+                        'menu_code' => '0005',
                         'menu_name' => '사용자권한관리',
                         'menu_icon' => null,
                         'module_code' => 'Basic',
                         'menu_route_name' => 'basic.auth',
-                        'menu_level' => 10
+                        'menu_level' => 1
                     ],
                     [
-                        'menu_code' => '1006',
+                        'menu_code' => '0006',
                         'menu_name' => '코드관리',
                         'menu_icon' => null,
                         'module_code' => 'Basic',
@@ -118,6 +118,15 @@ return [
                         'menu_level' => 0
                     ]
                 ],
+            ],
+            [
+                'menu_code' => '1000',
+                'menu_name' => '기준정보관리',
+                'menu_icon' => 'Cog6ToothIcon',
+                'module_code' => 'Config',
+                'menu_route_name' => '',
+                'menu_level' => 99,
+                'children' => []
             ],
             [
                 'menu_code' => '2000',

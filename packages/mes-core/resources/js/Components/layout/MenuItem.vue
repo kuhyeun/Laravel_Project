@@ -57,7 +57,6 @@
 
 <script setup>
 import { ref, computed, nextTick, watch, onMounted, onUnmounted } from 'vue';
-import { route } from 'ziggy-js';
 import { Link, usePage, router } from '@inertiajs/vue3';
 import MenuItem from './MenuItem.vue';
 import * as OutlineIcons from '@heroicons/vue/24/outline';
@@ -89,25 +88,16 @@ const hasChildren = computed(() =>
 );
 
 const isActive = computed(() => {
-    if (!props.menuItem.menu_route_name) return false;
-    try {
-        const menuPath = route(props.menuItem.menu_route_name, undefined, false);
-        return currentUrl.value === menuPath || currentUrl.value === menuPath + '/';
-    } catch {
-        return false;
-    }
+    const path = props.menuItem.url_path;
+    if (!path) return false;
+    return currentUrl.value === path || currentUrl.value === path + '/';
 });
 
 const hasActiveChild = (item) => {
     if (!Array.isArray(item.children)) return false;
     return item.children.some(child => {
-        if (child.menu_route_name) {
-            try {
-                const childPath = route(child.menu_route_name, undefined, false);
-                if (currentUrl.value === childPath || currentUrl.value === childPath + '/') return true;
-            } catch {
-                console.log( "hasActiveChild Error" );
-            }
+        if (child.url_path) {
+            if (currentUrl.value === child.url_path || currentUrl.value === child.url_path + '/') return true;
         }
         return hasActiveChild(child);
     });
@@ -138,16 +128,7 @@ watch(currentUrl, () => {
   }
 });
 
-const itemHref = computed(() => {
-    if (!props.menuItem.menu_route_name) {
-        return null;
-    }
-    try {
-        return route(props.menuItem.menu_route_name);
-    } catch {
-        return null;
-    }
-});
+const itemHref = computed(() => props.menuItem.url_path || null);
 
 const toggle = async () => {
     if (!expanded.value) {

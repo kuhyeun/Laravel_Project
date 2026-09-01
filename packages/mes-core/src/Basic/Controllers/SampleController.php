@@ -3,30 +3,10 @@
 namespace MesCore\Basic\Controllers;
 
 use MesCore\Http\Controller;
-use Inertia\Inertia;
 use Illuminate\Http\Request;
 
+// 차트/ApiSample 페이지 렌더는 제네릭 라우터가 처리. 여기는 샘플 API 엔드포인트만.
 class SampleController extends Controller {
-    
-    public function barChart() {
-        return Inertia::render( 'Sample/BarChart' );
-    }
-    
-    public function lineChart() {
-        return Inertia::render( 'Sample/LineChart' );
-    }
-
-    public function circleChart() {
-        return Inertia::render( 'Sample/CircleChart' );
-    }
-
-    public function comboChart() {
-        return Inertia::render( 'Sample/ComboChart' );
-    }
-
-    public function api() {
-        return Inertia::render( 'Sample/ApiSample' );
-    }
 
     public function apiGet( Request $request ) {
         $requestParams = $request->all(); // 모든 데이터 조회

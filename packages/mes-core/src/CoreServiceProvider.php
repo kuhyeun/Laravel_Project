@@ -84,6 +84,9 @@ class CoreServiceProvider extends ServiceProvider {
                     $this->loadRoutesFrom($path);
                 }
             }
+
+            // 제네릭 페이지 라우트 ( 반드시 마지막 - 매칭 안 된 경로를 url_path 로 조회해 렌더 )
+            Route::fallback([\MesCore\Page\Controllers\PageController::class, 'show']);
         });
     }
 }

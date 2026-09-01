@@ -6,7 +6,7 @@
 
         <div class="flex flex-1 overflow-hidden">
             <aside id="app-sidebar" class="app-sidebar w-[250px] border-r transition-all duration-300 ease-in-out overflow-y-auto overflow-x-hidden">
-                <left-menu :menu-items="menuItems"></left-menu>
+                <left-menu :menu-items="menuItems" :admin-items="adminItems"></left-menu>
             </aside>
 
             <main class="app-content flex flex-col flex-1 overflow-y-auto p-6 bg-white">
@@ -32,4 +32,5 @@ import BaseModal from '../Components/Modals/BaseModal.vue';
 
 const page = usePage();
 const menuItems = computed(() => page.props.userMenu ?? []);
+const adminItems = computed(() => page.props.adminMenu ?? []);
 </script>

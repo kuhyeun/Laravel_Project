@@ -21,9 +21,21 @@ return Application::configure(basePath: dirname(__DIR__))
     })
     ->withExceptions(function (Exceptions $exceptions) {
         $exceptions->respond(function (\Symfony\Component\HttpFoundation\Response $response, \Throwable $e, \Illuminate\Http\Request $request) {
-            if ($response->getStatusCode() === 419) {
+            $status = $response->getStatusCode();
+
+            if ($status === 419) {
                 return redirect()->back()->withErrors(['error' => '페이지가 만료되었습니다. 다시 시도해주세요.']);
             }
+
+            // 권한/찾을 수 없음 등은 Inertia 에러 페이지로 렌더 ( 앱 레이아웃 유지 )
+            // 순수 JSON API 요청( axios 등, X-Inertia 없음 )은 그대로 응답 반환
+            $wantsJson = $request->expectsJson() && ! $request->header('X-Inertia');
+            if (in_array($status, [403, 404, 503]) && ! $wantsJson) {
+                return \Inertia\Inertia::render('Error', ['status' => $status])
+                    ->toResponse($request)
+                    ->setStatusCode($status);
+            }
+
             return $response;
         });
     })->create();
